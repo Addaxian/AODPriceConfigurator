@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>AOD-Cloud Configurator</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="VBSStyles.css" rel="stylesheet">
+    <link href="APC.css" rel="stylesheet" type="text/css">
+    <style>
+    .w3-third img{margin-bottom: -6px; opacity: 0.8; cursor: pointer}
+    .w3-third img:hover{opacity: 1}
+    </style>
+</head>
+
+<body class="w3-light-grey w3-content" style="max-width:1600px" onclick="windowClick();" onload="InitialiseForm()">
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-bar-block aod-sup1 w3-animate-left w3-text-grey w3-collapse w3-top w3-center" id="mySidebar" style="z-index:3;width:250px;font-weight:bold">
+        <br>
+
+        <h3 class="w3-padding-64 w3-center"><b>MYOB GREENTREE<br>
+        HOSTING<br>
+        CONFIGURATOR</b>
+        </h3>
+        <a class="w3-bar-item w3-button w3-padding w3-hide-large" href="javascript:void(0)" onclick="w3_close()">CLOSE</a>
+		<a class="w3-bar-item w3-button" href="#Customer" onclick="w3_close('Customer')">CUSTOMER</a>
+		<a class="w3-bar-item w3-button" href="#Greentree" onclick="w3_close('Greentree')">GREENTREE</a>
+		<a class="w3-bar-item w3-button" href="#AODHosting" onclick="w3_close('AODHosting')">HOSTING</a>
+		<a class="w3-bar-item w3-button" href="#Summary" onclick="w3_close('Summary')">SUMMARY</a>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
+        <span class="w3-left w3-padding">GT HOSTING CONFIGURATOR</span> <a class="w3-right w3-button w3-white" href="javascript:void(0)" onclick="w3_open()">☰</a>
+    </header>
+	
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" id="myOverlay" onclick="w3_close()" style="cursor:pointer" title="close side menu">
+	</div>
+
+	<!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:250px">
+
+	<!-- Header -->
+		<div class="w3-container w3-padding w3-center w3-grey">
+			<div class="row">
+				<p></p>
+			</div>
+		</div>
+			
+        <!-- Push down content on small screens -->
+        <div class="w3-hide-large" style="margin-top:83px">
+        </div>
+
+        <!-- Customer section -->
+        <div class="MenuSec w3-container aod-primary w3-center w3-white w3-padding-32" id="Customer">
+            <h1><b>Customer</b></h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel sapien in ipsum tempor vehicula eget a enim. Pellentesque pellentesque, ante quis varius tristique, enim diam eleifend lorem, vulputate ultricies arcu quam vel arcu. Nunc sagittis lacus a laoreet gravida. Donec eget erat sapien. Donec luctus nibh est, dignissim vestibulum ante feugiat sit amet.</p>
+
+            <p>Duis et tincidunt magna, et laoreet dui. Nulla suscipit leo in diam consectetur tincidunt. Proin tortor nibh, fringilla eget varius et, pulvinar et mi. Pellentesque nec dui interdum, luctus sem ut, dictum eros. Etiam vehicula porta rhoncus.</p>
+			<p><br></p>
+			<form class="aod-shade" action="/action_page.php">
+				<p><br></p>
+                <div class="row">
+                    <div class="col-lbl">
+                        <label for="clientname">Client Name</label>
+                    </div>
+
+                    <div class="col-50">
+						<!-- <input style="text-align: left; width: 100%; background-color: white;" id="clientname" name="clientname" placeholder="Client Name.." type="text"> -->
+						<input class="form" id="clientname" name="clientname" placeholder="Client Name.." type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lbl">
+                        <label for="currency">Currency</label>
+                    </div>
+
+                    <div class="col-10">
+                        <select style="width: 100%" class="tdNRA" id="currency" name="currency" onchange="SetPrices()">
+                            <option value="AUD">AUD</option>
+                            <option value="NZD">NZD</option>
+                            <option value="BPS">BPS</option>
+                        </select>
+					</div>
+					<div class="col-05"></div>
+					<div class="col-lbl">
+                        <label for="marginPct" id="marginLbl">Investment Calculator</label>
+                    </div>
+
+                    <div class="col-10">
+                        <select style="width: 100%" class="tdNRA" id="marginPct" name="GTMargin" onchange="SetPartnerMarginLabel(this)">
+							<option value="0">0%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+							<option value="30">30%</option>
+							<option value="32.5">32.5%</option>
+							<option value="35">35%</option>
+							<option value="40">40%</option>
+							<option value="42.5">42.5%</option>
+							<option value="45">45%</option>
+							<option value="50">50%</option>
+                        </select>
+                    </div>
+				</div>
+				
+				<div class="row">
+                    <div class="col-lbl">
+                        <label for="licenseType">License Type</label>
+                    </div>
+
+                    <div class="col-10">
+                        <select style="width: 100%" id="licenseType" name="licenseType">
+                            <option value="Perpetual">Perpetual</option>
+                            <option value="Subscription">Subscription</option>
+                        </select>
+                    </div>
+                </div>
+
+				<div class="row">
+                    <div class="col-lbl">
+                        <label for="notes">Notes</label>
+                    </div>
+
+                    <div class="col-50">
+                        <textarea style="height:50px; width: 100%;" id="notes" name="notes" placeholder="File notes.."></textarea>
+                    </div>
+                </div>
+				<p><br></p>
+			</form>
+			<p><br></p>
+			<footer>
+				<div class="w3-container w3-padding-32 w3-row-padding aod-primary">
+					<button style="float: right;" class="button" onclick="w3_close('Greentree')">Next -></button>
+					<!-- <input type="submit" value="Submit"> -->
+				</div>	
+			</footer>
+        </div>
+
+		<!-- Greentree Pricing section -->
+        <div class="MenuSec w3-container aod-background-p5 w3-center w3-white w3-padding-32" id="Greentree">
+			<h1><b>Suites</b></h1>
+			<p style="text-align: center;" >For most Greentree Windows Client modules, the user count is controlled by the suite count.</p>
+
+			<form>
+				<!-- GT Suite Table -->
+				<table class="tblGTSuite" id="tblGTSuite">
+					<tbody>
+						<tr>
+							<th style="width:15em">Suite</th>
+							<th style="width: 5em; text-align: center;">Current Users</th>
+							<th style="width: 5em; text-align: center;">Required Users</th>
+							<th style="text-align: left;">Notes</th>
+						</tr>
+
+						<tr class="trTypeLi1" id="GTSuiteFIN">
+							<td class="CellWithComment tdMDL">Financial<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteFINCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteFINRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTSuiteDIS">
+							<td class="CellWithComment tdMDL">Distribution<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteDISCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteDISRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GTSuiteJBC">
+							<td class="CellWithComment tdMDL">Job Cost<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteJBCCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteJBCRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+						<tr class="trTypeLi1" id="GTSuiteMAN">
+							<td class="CellWithComment tdMDL">Manufacturing<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteMANCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteMANRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+						<tr class="trTypeLi1" id="GTSuiteCBS">
+							<td class="CellWithComment tdMDL">CRM Basic<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteCBSCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteCBSRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+						<tr class="trTypeLi1" id="GTSuiteCSL">
+							<td class="CellWithComment tdMDL">CRM Sales<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteCSLCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteCSLRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+						<tr class="trTypeLi1" id="GTSuiteCSU">
+							<td class="CellWithComment tdMDL">CRM Support<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteCSUCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteCSURus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+						<tr class="trTypeLi1" id="GTSuiteCAS">
+							<td class="CellWithComment tdMDL">CRM Assets<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteCASCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteCASRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+						<tr class="trTypeLi1" id="GTSuiteSCM">
+							<td class="CellWithComment tdMDL">Supply Chain Management<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteSCMCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteSCMRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+						<tr class="trTypeLi1" id="GTSuitePOS">
+							<td class="CellWithComment tdMDL">Point of Sales<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuitePOSCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuitePOSRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+						<tr class="trTypeLi1" id="GTSuiteGBL">
+							<td class="CellWithComment tdMDL">Global Finance<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteGBLCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteGBLRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+						<tr class="trTypeLi1" id="GTSuiteTOT">
+							<td class="CellWithComment tdMDL">Total System Users<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteTOTCus"><input class="tdNRA tdCUR" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTSuiteTOTRus"><input class="tdNRA tdRUS" min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX" id="GTSuiteTOTNotes"><span class="CellValue"></span><span class="CellComment"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				<p><br><br></p>
+
+				<h1><b>Modules</b></h1>
+				<p style="text-align: center;" >Greentree Modules</p>
+				<!-- Greentree Modules Table-->
+				<table class="tblGTModules" id="tblGTModules">
+					<tbody>
+						<tr>
+							<th style="width: 22em">Module</th>							 
+							<th style="width: 5em; text-align: center; font-size: .9em;">Current Qty</th>
+							<th style="width: 5em; text-align: center; font-size: .9em;">Required Qty</th>
+							<th style="width: 6em; text-align: center; font-size: .9em;">Negotiated Discount</th>
+							<th style="width: 8em; text-align: center; font-size: .9em;">Retail Price</th>
+							<th style="width: 6em; text-align: center; font-size: .9em;">Discount</th>
+							<th style="width: 8em; text-align: center; font-size: .9em;">Price to Customer</th>
+							<th style="width: 8em; text-align: center; font-size: .9em;">Partner Margin</th>
+							<th style="width: 8em; text-align: center; font-size: .9em;">Partner Cost</th>
+							<th style="width: 15em; text-align: center;font-size: .9em;">Notes</th>
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleSM_">
+							<td class="CellWithComment tdMDL" id="GTModuleASM_HDR">System Manager<span class="blnCBX"><input type="checkbox" id="GTModuleSM_CHK" onfocus="this.oldchecked=this.checked;" onclick="clickedSMM(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleSM_CUS" ondblclick="getModalPopUp(this)"><span class="CellValue"></span><span class="CellComment"></span></td>																			<!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleSM_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																			<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleSM_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleSM_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleSM_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleSM_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleSM_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleSM_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleAP_">
+							<td class="CellWithComment tdMDL" id="GTModuleAP_HDR">Accounts Payable<span class="blnCBX"><input type="checkbox" id="GTModuleAP_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleAP_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleAP_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleAP_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleAP_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleAP_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleAP_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleAP_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleAP_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleAR_">
+							<td class="CellWithComment tdMDL" id="GTModuleAR_HDR">Accounts Receivable<span class="blnCBX"><input type="checkbox" id="GTModuleAR_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleAR_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleAR_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleAR_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleAR_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleAR_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleAR_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleAR_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleAR_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModuleARD">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleARDHDR">Direct Debits<span class="blnCBX"><input type="checkbox" id="GTModuleARDCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleARDCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleARDRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleARDDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleARDRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleARDDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleARDCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleARDMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleARDCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModuleARA">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleARAHDR">AR Refunds<span class="blnCBX"><input type="checkbox" id="GTModuleARACHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleARACUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleARARUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleARADSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleARARRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleARADSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleARACHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleARAMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleARACST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleGL_">
+							<td class="CellWithComment tdMDL" id="GTModuleGL_HDR">General Ledger<span class="blnCBX"><input type="checkbox" id="GTModuleGL_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleGL_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleGL_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleGL_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleGL_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleGL_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleGL_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleGL_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleGL_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModuleGLC">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleGLCHDR">Cash Management<span class="blnCBX"><input type="checkbox" id="GTModuleGLCCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleGLCCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleGLCRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleGLCDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleGLCRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleGLCDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleGLCCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleGLCMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleGLCCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModuleGLR">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleGLRHDR">Reconciliations<span class="blnCBX"><input type="checkbox" id="GTModuleGLRCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleGLRCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleGLRRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleGLRDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleGLRRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleGLRDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleGLRCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleGLRMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleGLRCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleGLT">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleGLTHDR">Transaction Analysis (GL)<span class="blnCBX"><input type="checkbox" id="GTModuleGLTCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleGLTCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleGLTRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleGLTDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleGLTRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleGLTDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleGLTCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleGLTMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleGLTCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleSEC">
+							<td class="CellWithComment tdMDL" id="GTModuleSECHDR">Advanced Security<span class="blnCBX"><input type="checkbox" id="GTModuleSECCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleSECCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleSECRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleSECDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleSECRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleSECDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleSECCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleSECMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleSECCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleFC_">
+							<td class="CellWithComment tdMDL" id="GTModuleFC_HDR">Foreign Currency<span class="blnCBX"><input type="checkbox" id="GTModuleFC_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleFC_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleFC_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleFC_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleFC_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleFC_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleFC_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleFC_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleFC_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleFA_">
+							<td class="CellWithComment tdMDL" id="GTModuleFA_HDR">Fixed Assets<span class="blnCBX"><input type="checkbox" id="GTModuleFA_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleFA_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleFA_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleFA_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleFA_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleFA_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleFA_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleFA_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleFA_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleQD_">
+							<td class="CellWithComment tdMDL" id="GTModuleQD_HDR">Quad Accounting<span class="blnCBX"><input type="checkbox" id="GTModuleQD_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleQD_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleQD_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleQD_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleQD_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleQD_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleQD_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleQD_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleQD_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX">AKA Logical Companies<span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleACO">
+							<td class="CellWithComment tdMDL" id="GTModuleACOHDR">Additional Companies<span class="blnCBX"><input type="checkbox" id="GTModuleACOCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleACOCUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value=""><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleACORUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value=""><span class="CellComment"></span></td> <!-- Required User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleACODSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleACORRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleACODSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleACOCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleACOMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleACOCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleCON">
+							<td class="CellWithComment tdMDL" id="GTModuleCONHDR">Consolidations<span class="blnCBX"><input type="checkbox" id="GTModuleCONCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleCONCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleCONRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleCONDSP"><input class="no-spin"type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleCONRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleCONDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleCONCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleCONMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleCONCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleGFR">
+							<td class="CellWithComment tdMDL" id="GTModuleGFRHDR">Global Finance Revaluations<span class="blnCBX"><input type="checkbox" id="GTModuleGFRCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleGFRCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleGFRRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleGFRDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleGFRRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleGFRDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleGFRCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleGFRMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleGFRCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleGFT">
+							<td class="CellWithComment tdMDL" id="GTModuleGFTHDR">Translations<span class="blnCBX"><input type="checkbox" id="GTModuleGFTCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleGFTCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleGFTRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleGFTDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleGFTRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleGFTDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleGFTCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleGFTMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleGFTCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleCFC">
+							<td class="CellWithComment tdMDL" id="GTModuleCFCHDR">Consolidation Companies<span class="blnCBX"><input type="checkbox" id="GTModuleCFCCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleCFCCUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="10" type="number" value=""><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleCFCRUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="10" type="number" value=""><span class="CellComment"></span></td> <!-- Required User Count -->
+							<td class="CellWithComment tdNRA"  id="GTModuleCFCDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleCFCRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleCFCDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleCFCCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleCFCMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleCFCCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleIN_">
+							<td class="CellWithComment tdMDL" id="GTModuleIN_HDR">Inventory<span class="blnCBX"><input type="checkbox" id="GTModuleIN_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleIN_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleIN_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleIN_DSP" ><input class="no-spin"type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleIN_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleIN_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleIN_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleIN_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleIN_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleINR">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleINRHDR">Advanced Reordering<span class="blnCBX"><input type="checkbox" id="GTModuleINRCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleINRCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleINRRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleINRDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleINRRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleINRDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleINRCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleINRMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleINRCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleINA">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleINAHDR">Advanced Pricing<span class="blnCBX"><input type="checkbox" id="GTModuleINACHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleINACUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleINARUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleINADSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleINARRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleINADSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleINACHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleINAMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleINACST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleINS">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleINSHDR">Supercessions<span class="blnCBX"><input type="checkbox" id="GTModuleINSCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleINSCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleINSRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleINSDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleINSRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleINSDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleINSCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleINSMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleINSCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleINI">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleINIHDR">Transaction Analysis (IN)<span class="blnCBX"><input type="checkbox" id="GTModuleINICHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleINICUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleINIRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleINIDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleINIRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleINIDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleINICHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleINIMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleINICST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleINQ">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleINQHDR">Quality Control<span class="blnCBX"><input type="checkbox" id="GTModuleINQCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleINQCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleINQRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleINQDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleINQRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleINQDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleINQCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleINQMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleINQCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleINW">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleINWHDR">Warehouse Bin Management<span class="blnCBX"><input type="checkbox" id="GTModuleINWCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleINWCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleINWRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleINWDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleINWRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleINWDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleINWCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleINWMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleINWCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleSO_">
+							<td class="CellWithComment tdMDL" id="GTModuleSO_HDR">Sales Orders<span class="blnCBX"><input type="checkbox" id="GTModuleSO_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleSO_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleSO_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleSO_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleSO_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleSO_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleSO_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleSO_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleSO_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModuleSOP">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleSOPHDR">Purchase Order Linking<span class="blnCBX"><input type="checkbox" id="GTModuleSOPCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleSOPCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleSOPRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleSOPDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleSOPRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleSOPDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleSOPCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleSOPMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleSOPCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModuleSOF">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleSOFHDR">Factory Order Linking<span class="blnCBX"><input type="checkbox" id="GTModuleSOFCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleSOFCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleSOFRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleSOFDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleSOFRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleSOFDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleSOFCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleSOFMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleSOFCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModulePO_">
+							<td class="CellWithComment tdMDL" id="GTModulePO_HDR">Purchase Orders<span class="blnCBX"><input type="checkbox" id="GTModulePO_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModulePO_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModulePO_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModulePO_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModulePO_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModulePO_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModulePO_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModulePO_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModulePO_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModulePOI">
+							<td class="CellWithComment tdModuleIndent1" id="GTModulePOIHDR">Import Costing<span class="blnCBX"><input type="checkbox" id="GTModulePOICHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModulePOICUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModulePOIRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModulePOIDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModulePOIRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModulePOIDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModulePOICHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModulePOIMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModulePOICST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleJC_">
+							<td class="CellWithComment tdMDL" id="GTModuleJC_HDR">Job Costing<span class="blnCBX"><input type="checkbox" id="GTModuleJC_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleJC_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleJC_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleJC_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleJC_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleJC_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleJC_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleJC_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleJC_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModuleJCA">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleJCAHDR">Advanced Job Costing<span class="blnCBX"><input type="checkbox" id="GTModuleJCACHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleJCACUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleJCARUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleJCADSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleJCARRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleJCADSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleJCACHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleJCAMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleJCACST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModuleJCP">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleJCPHDR">MS Project Interface<span class="blnCBX"><input type="checkbox" id="GTModuleJCPCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleJCPCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleJCPRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleJCPDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleJCPRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleJCPDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleJCPCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleJCPMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleJCPCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleMRB">
+							<td class="CellWithComment tdMDL" id="GTModuleMRBHDR">Manufacturing Bill of Materials<span class="blnCBX"><input type="checkbox" id="GTModuleMRBCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleMRBCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleMRBRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleMRBDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleMRBRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleMRBDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleMRBCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleMRBMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleMRBCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleMRP">
+							<td class="CellWithComment tdMDL" id="GTModuleMRPHDR">Materials Requirements Planning (MRP)<span class="blnCBX"><input type="checkbox" id="GTModuleMRPCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleMRPCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleMRPRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleMRPDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleMRPRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleMRPDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleMRPCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleMRPMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleMRPCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleMRF">
+							<td class="CellWithComment tdMDL" id="GTModuleMRFHDR">Forecasting<span class="blnCBX"><input type="checkbox" id="GTModuleMRFCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleMRFCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleMRFRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleMRFDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleMRFRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleMRFDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleMRFCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleMRFMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleMRFCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleCCR">
+							<td class="CellWithComment tdMDL" id="GTModuleCCRHDR">Contacts and Relationships<span class="blnCBX"><input type="checkbox" id="GTModuleCCRCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCRCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCRRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCRDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleCCRRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleCCRDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleCCRCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleCCRMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleCCRCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModuleCDC">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleCDCHDR">Debt Collection<span class="blnCBX"><input type="checkbox" id="GTModuleCDCCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleCDCCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleCDCRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleCDCDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleCDCRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleCDCDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleCDCCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleCDCMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleCDCCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTModuleCKB">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleCKBHDR">Knowledgebase<span class="blnCBX"><input type="checkbox" id="GTModuleCKBCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleCKBCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleCKBRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleCKBDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleCKBRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleCKBDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleCKBCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleCKBMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleCKBCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleCSM">
+							<td class="CellWithComment tdMDL" id="GTModuleCSMHDR">Sales and Marketing<span class="blnCBX"><input type="checkbox" id="GTModuleCSMCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleCSMCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleCSMRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleCSMDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleCSMRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleCSMDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleCSMCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleCSMMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleCSMCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleMSO">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleMSOHDR">Sales - mobile (named users)<span class="blnCBX"><input type="checkbox" id="GTModuleMSOCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->				
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleMSOCUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value=""><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleMSORUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value=""><span class="CellComment"></span></td> <!-- Required User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleMSODSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleMSORRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleMSODSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleMSOCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleMSOMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleMSOCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleCBM">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleCBMHDR">Booking Management<span class="blnCBX"><input type="checkbox" id="GTModuleCBMCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleCBMCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleCBMRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleCBMDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleCBMRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleCBMDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleCBMCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleCBMMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleCBMCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleCCS">
+							<td class="CellWithComment tdMDL" id="GTModuleCCSHDR">Customer Support<span class="blnCBX"><input type="checkbox" id="GTModuleCCSCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCSCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCSRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCSDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleCCSRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleCCSDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleCCSCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleCCSMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleCCSCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX">Includes Field Service<span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleMSR">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleMSRHDR">Service - mobile (named users)<span class="blnCBX"><input type="checkbox" id="GTModuleMSRCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->				
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleMSRCUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value=""><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleMSRRUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="1" type="number" value=""><span class="CellComment"></span></td> <!-- Required User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleMSRDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleMSRRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleMSRDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleMSRCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleMSRMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleMSRCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleCCT">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleCCTHDR">Contracts<span class="blnCBX"><input type="checkbox" id="GTModuleCCTCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCTCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCTRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCTDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleCCTRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleCCTDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleCCTCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleCCTMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleCCTCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX">Includes Service Level Agreements<span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleAM_">
+							<td class="CellWithComment tdMDL" id="GTModuleAM_HDR">Asset Management<span class="blnCBX"><input type="checkbox" id="GTModuleAM_CHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleAM_CUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleAM_RUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleAM_DSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleAM_RRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleAM_DSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleAM_CHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleAM_MGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleAM_CST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX">Includes Scheduled Maintenance<span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleSCR">
+							<td class="CellWithComment tdMDL" id="GTModuleSCRHDR">Requisitions<span class="blnCBX"><input type="checkbox" id="GTModuleSCRCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleSCRCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleSCRRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleSCRDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleSCRRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleSCRDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleSCRCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleSCRMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleSCRCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX">Includes Scheduled Maintenance<span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleSCA">
+							<td class="CellWithComment tdMDL" id="GTModuleSCAHDR">Analytics<span class="blnCBX"><input type="checkbox" id="GTModuleSCACHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleSCACUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleSCARUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleSCADSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleSCARRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleSCADSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleSCACHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleSCAMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleSCACST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX">Includes Scheduled Maintenance<span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleCCI">
+							<td class="CellWithComment tdMDL" id="GTModuleCCIHDR">Catalogues and Inventory Sourcing<span class="blnCBX"><input type="checkbox" id="GTModuleCCICHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCICUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCIRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleCCIDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleCCIRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleCCIDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleCCICHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleCCIMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleCCICST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX">Includes Scheduled Maintenance<span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModulePOS">
+							<td class="CellWithComment tdMDL" id="GTModulePOSHDR">Point of Sales<span class="blnCBX"><input type="checkbox" id="GTModulePOSCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModulePOSCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModulePOSRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModulePOSDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModulePOSRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModulePOSDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModulePOSCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModulePOSMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModulePOSCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleBDR">
+							<td class="CellWithComment tdMDL" id="GTModuleBDRHDR">Browser Designer<span class="blnCBX"><input type="checkbox" id="GTModuleBDRCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleBDRCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleBDRRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleBDRDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleBDRRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleBDRDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleBDRCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleBDRMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleBDRCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleWFD">
+							<td class="CellWithComment tdMDL" id="GTModuleWFDHDR">Workflow Designer<span class="blnCBX"><input type="checkbox" id="GTModuleWFDCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFDCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFDRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA"  id="GTModuleWFDDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleWFDRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleWFDDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleWFDCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleWFDMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleWFDCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleWFA">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleWFAHDR">Workflow Approvals and Alerts<span class="blnCBX"><input type="checkbox" id="GTModuleWFACHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFACUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFARUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFADSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleWFARRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleWFADSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleWFACHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleWFAMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleWFACST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleWFB">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleWFBHDR">Business Process Manager (BPM)<span class="blnCBX"><input type="checkbox" id="GTModuleWFBCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFBCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFBRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFBDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleWFBRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleWFBDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleWFBCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleWFBMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleWFBCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleWFI">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleWFIHDR">Data Import Manager<span class="blnCBX"><input type="checkbox" id="GTModuleWFICHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFICUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFIRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFIDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleWFIRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleWFIDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleWFICHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleWFIMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleWFICST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleWFS">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleWFSHDR">Autoscan<span class="blnCBX"><input type="checkbox" id="GTModuleWFSCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFSCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFSRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleWFSDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleWFSRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleWFSDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleWFSCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleWFSMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleWFSCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleMTS">
+							<td class="CellWithComment tdMDL" id="GTModuleMTSHDR">Timesheets - mobile (named users)<span class="blnCBX"><input type="checkbox" id="GTModuleMTSCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->				
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleMTSCUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="10" type="number" value=""><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleMTSRUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="10" type="number" value=""><span class="CellComment"></span></td> <!-- Required User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleMTSDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleMTSRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleMTSDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleMTSCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleMTSMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleMTSCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleERQ">
+							<td class="CellWithComment tdMDL" id="GTModuleERQHDR">eRequisitions<span class="blnCBX"><input type="checkbox" id="GTModuleERQCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleERQCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleERQRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleERQDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleERQRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleERQDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleERQCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleERQMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleERQCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleERU">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleERUHDR">eRequisitions Additional Users<span class="blnCBX"><input type="checkbox" id="GTModuleERUCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->				
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleERUCUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="10" type="number" value=""><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleERURUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="10" type="number" value=""><span class="CellComment"></span></td> <!-- Required User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleERUDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleERURRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleERUDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleERUCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleERUMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleERUCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleERP">
+							<td class="CellWithComment tdMDL" id="GTModuleERPHDR">eReporting<span class="blnCBX"><input type="checkbox" id="GTModuleERPCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleERPCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleERPRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleERPDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleERPRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleERPDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleERPCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleERPMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleERPCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleEAP">
+							<td class="CellWithComment tdMDL" id="GTModuleEAPHDR">eApprovals<span class="blnCBX"><input type="checkbox" id="GTModuleEAPCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleEAPCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleEAPRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleEAPDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleEAPRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleEAPDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleEAPCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleEAPMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleEAPCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleEAU">
+							<td class="CellWithComment tdModuleIndent1" id="GTModuleEAUHDR">eApprovals Additional Users<span class="blnCBX"><input type="checkbox" id="GTModuleEAUCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->				
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleEAUCUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="10" type="number" value=""><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment"><input class="tdNRA" id="GTModuleEAURUS" disabled min="0" max="999" onfocus="this.oldvalue = this.value;" onClick="this.select();" onchange="checkRules(this)" step="10" type="number" value=""><span class="CellComment"></span></td> <!-- Required User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleEAUDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleEAURRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleEAUDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleEAUCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleEAUMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleEAUCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleEDF">
+							<td class="CellWithComment tdMDL" id="GTModuleEDFHDR">EDI - Financials<span class="blnCBX"><input type="checkbox" id="GTModuleEDFCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleEDFCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleEDFRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleEDFDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleEDFRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleEDFDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleEDFCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleEDFMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleEDFCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX">Minimum Quantity is 12<span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleEDD">
+							<td class="CellWithComment tdMDL" id="GTModuleEDDHDR">EDI - Distribution<span class="blnCBX"><input type="checkbox" id="GTModuleEDDCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleEDDCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleEDDRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleEDDDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleEDDRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleEDDDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleEDDCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleEDDMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleEDDCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX">Includes EDI Fiancials &amp; Minimum Quantity is 12<span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleSQL">
+							<td class="CellWithComment tdMDL" id="GTModuleSQLHDR">SQL Option<span class="blnCBX"><input type="checkbox" id="GTModuleSQLCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleSQLCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleSQLRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleSQLDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleSQLRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleSQLDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleSQLCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleSQLMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleSQLCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleGSI">
+							<td class="CellWithComment tdMDL" id="GTModuleGSIHDR">Greentree - Instant Secure<span class="blnCBX"><input type="checkbox" id="GTModuleGSICHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleGSICUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleGSIRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleGSIDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleGSIRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleGSIDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleGSICHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleGSIMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleGSICST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleGST">
+							<td class="CellWithComment tdMDL" id="GTModuleGSTHDR">Greentree - Total Secure<span class="blnCBX"><input type="checkbox" id="GTModuleGSTCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleGSTCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleGSTRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleGSTDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleGSTRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleGSTDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleGSTCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleGSTMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleGSTCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="trTypeLi1" id="GTModuleOWB">
+							<td class="CellWithComment tdMDL" id="GTModuleOWBHDR">Open Web for Greentree<span class="blnCBX"><input type="checkbox" id="GTModuleOWBCHK" onclick="checkRules(this);"></span><span class="CellComment"></span></td>	<!-- Module -->
+							<td class="CellWithComment tdNRA" id="GTModuleOWBCUS" ondblclick="overRidevalue(this)"><input class="tdNRA no-spin OverRide" onClick="this.select();" onchange="checkRules(this)" type="number" value="0" disabled><span class="CellValue"></span><span class="CellComment"></span></td> <!-- Current User Count -->
+							<td class="CellWithComment tdNRA" id="GTModuleOWBRUS"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Required Users -->
+							<td class="CellWithComment tdNRA" id="GTModuleOWBDSP"><input class="no-spin" type="number" onchange="checkRules(this);"><span class="CellComment"></span></td>											<!-- Negotiated Discount &'age' -->
+							<td class="CellWithComment tdNRA tdRRP" id="GTModuleOWBRRP"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Price to Customer -->
+							<td class="CellWithComment tdNRA tdDSV" id="GTModuleOWBDSV"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Discount amount $ -->
+							<td class="CellWithComment tdNRA tdCHG" id="GTModuleOWBCHG"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost/Charge/Price to Customer -->
+							<td class="CellWithComment tdNRA tdMGN" id="GTModuleOWBMGN"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Margin due to Vendor -->
+							<td class="CellWithComment tdNRA tdCST" id="GTModuleOWBCST"><span class="CellValue"></span><span class="CellComment"></span></td>																		<!-- Cost to reseller -->
+							<td class="CellWithComment tdModuleNotes tdScrollX"><span class="CellValue"></span><span class="CellComment"></span></td>																				<!-- Notes -->
+						</tr>
+
+						<tr class="tdTotRow1" id="tblGTModulesTOT">
+							<td colspan="4">Totals<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="tblGTModulesTOTRRP"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="tblGTModulesTOTDSV"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="tblGTModulesTOTCHG"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="tblGTModulesTOTMGN"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="tblGTModulesTOTCST"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td><span class="CellComment"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+			<footer>
+				<div class="w3-container w3-padding-32 w3-row-padding aod-primary row">
+					<button style="float: left;" class="button" onclick="w3_close('Customer')">&lt;- Previous</button>
+					<button class="button" onclick="ExportToExcel(tblGTModules)">Export</button>
+					<button style="float: right;" class="button" onclick="w3_close('AODHosting')">Next -&gt;</button>
+					<!-- <input type="submit" value="Submit"> -->
+				</div>	
+			</footer>
+		</div>
+		
+		<!-- AOD Pricing section -->
+        <div class="MenuSec w3-container aod-background-p5 w3-center w3-white w3-padding-32" id="AODHosting">
+				<h1><b>AOD Hosting</b></h1>
+				<p style="text-align: center;" >AOD-Hosting is provided by AOD-Cloud.</p>
+	
+			<p></p>
+			<form name="frmPrcHosting" id="frmPrcHosting">
+				<table class="tblAPC1" id="tblAODHosting">
+					<tbody>
+						<tr>
+							<th style="width:30%">Module</th>
+							<th style="width: 5%; text-align: center;">Qty</th>
+							<th style="width: 10%; text-align: center;">Unit Price</th>
+							<th style="width: 10%; text-align: center;">Extended Price</th>
+							<th>Notes</th>
+						</tr>
+
+						<tr>
+							<td class="tdHdrRow1" colspan="5">Database<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GTDBSmall">
+							<td class="CellWithComment tdMDL">Greentree Base Database (&lt;=7 Users)<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTDBSmallQty"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTDBSmallPrc"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTDBSmallVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">This is the fee for hosting the Greentree database<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GTDBLarge">
+							<td class="CellWithComment tdMDL">Greentree Base Database (&gt;7 Users)<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTDBLargeQty"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTDBLargePrc"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTDBLargeVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">This is the fee for hosting the Greentree database<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GTDBTest">
+							<td class="CellWithComment tdMDL">Secondary Greentree Database<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTDBTestQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTDBTestPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTDBTestVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Secondary, typically used for upgrade testing etc.<span class="CellComment"></span></td>
+						</tr>
+
+						<tr>
+							<td class="tdHdrRow1" colspan="5">Cloud Access<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="AODBase">
+							<td class="CellWithComment tdMDL">AOD Base Users<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="AODBaseQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="AODBasePrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="AODBaseVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Required to access <b>any</b> windows App on AOD<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GTFull">
+							<td class="CellWithComment tdMDL">Full Greentree Client<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTFullQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTFullPrc"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTFullVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Standard Greentree Windows Client (browser client included)<span class="CellComment"></span></td>
+						</tr>
+
+						<tr>
+							<td class="tdHdrRow1" colspan="5">Greentree Web Portals<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GWPWebView">
+							<td class="CellWithComment tdMDL">WebView Portal<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GWPWebViewQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GWPWebViewPrc"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GWPWebViewVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per WebView portal, users count subject to fair use policy<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GWPeApp">
+							<td class="CellWithComment tdMDL">eApprovals Portal<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GWPeAppQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GWPeAppPrc"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GWPeAppVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per eApprovals portal, users count subject to fair use policy<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GWPeTsh">
+							<td class="CellWithComment tdMDL">eTimesheets Portal<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GWPeTshQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GWPeTshPrc"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GWPeTshVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per eTimesheets portal, users count subject to fair use policy<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GWPeHR">
+							<td class="CellWithComment tdMDL">eHR Portal<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GWPeHRQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GWPeHRPrc"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GWPeHRVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per eHR portal, users count subject to fair use policy<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GWPeReq">
+							<td class="CellWithComment tdMDL">eRequisitions Portal<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GWPeReqQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GWPeReqPrc"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GWPeReqVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per eRequisitions portal, users count subject to fair use policy<span class="CellComment"></span></td>
+						</tr>
+
+						<tr>
+							<td class="tdHdrRow1" colspan="5">Greentree Browser<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GTBBase">
+							<td class="CellWithComment tdMDL">Greentree Browser Portal<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTBBaseQty">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTBBasePrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTBBaseVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per Greentree Browser portal (One is required for any Mobile Portal).<span class="CellComment"></span></td>
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTBCRM">
+							<td class="CellWithComment tdMDL">Greentree CRM Mobile<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTBCRMQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTBCRMPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTBCRMVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per Greentree CRM Mobile portal in addtion to the base Mobile Portal.<span class="CellComment"></span></td>
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTBSales">
+							<td class="CellWithComment tdMDL">Greentree Sales Mobile<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTBSalesQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTBSalesPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTBSalesVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per Greentree Sales Mobile portal in addtion to the base Mobile Portal.<span class="CellComment"></span></td>
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTBSrvc">
+							<td class="CellWithComment tdMDL">Greentree Service Mobile<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTBSrvcQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTBSrvcPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTBSrvcVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per Greentree Service Mobile portal in addtion to the base Mobile Portal.<span class="CellComment"></span></td>
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTBHR">
+							<td class="CellWithComment tdMDL">Greentree HR Mobile<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTBHRQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTBHRPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTBHRVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per Greentree HR Mobile portal in addtion to the base Mobile Portal.<span class="CellComment"></span></td>
+						</tr>
+						
+						<tr class="trTypeLi1" id="GTBTsh">
+							<td class="CellWithComment tdMDL">Greentree Timesheet Mobile<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTBTshQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTBTshPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTBTshVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per Greentree Timesheet Mobile portal in addtion to the base Mobile Portal.<span class="CellComment"></span></td>
+						</tr>
+
+						<tr>
+							<td class="tdHdrRow1" colspan="5">eDocs<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GTEBase">
+							<td class="CellWithComment tdMDL">Greentree eDocs Base<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTEBaseQty">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTEBasePrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTEBaseVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Per eDocs portal/Platform (One is required is any eDocs Only Users are required).<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="GTEUser">
+							<td class="CellWithComment tdMDL">Greentree eDocs ONLY user<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="GTEUserQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="GTEUserPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="GTEUserVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Greentree access for an eDocs ONLY user. Required in addtion to the eDocs base.<span class="CellComment"></span></td>
+						</tr>
+						
+						<tr>
+							<td class="tdHdrRow1" colspan="5">QlikView/QlikSense<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="QLKSvrLite">
+							<td class="CellWithComment tdMDL">Qlik Server - Standard<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="QLKSvrLiteQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="QLKSvrLitePrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="QLKSvrLiteVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">A standard QlikView/QlikSense server suitable for general QlikView usage.<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="QLKSvrPlus">
+							<td class="CellWithComment tdMDL">Qlik Server - Plus<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="QLKSvrPlusQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="QLKSvrPlusPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="QLKSvrPlusVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">A larger QlikView/QlikSense server suitable for heavy QlikView usage.<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="QLKSvrXtrm">
+							<td class="CellWithComment tdMDL">Qlik Server - Extreme<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="QLKSvrXtrmQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="QLKSvrXtrmPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="QLKSvrXtrmVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">A big QlikView/QlikSense server suitable for extreme QlikView usage.<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="QLKUser">
+							<td class="CellWithComment tdMDL">Qlik User<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="QLKUserQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="QLKUserPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="QLKUserVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">QlikView/QlikSense User.  For users requiring the windows client, an AOD base user licence is also required.<span class="CellComment"></span></td>
+						</tr>
+
+						<tr>
+							<td class="tdHdrRow1" colspan="5">Microsoft<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MSOffStd">
+							<td class="CellWithComment tdMDL">Microsoft Office Standard<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MSOffStdQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="MSOffStdPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MSOffStdVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Microsoft Office Standard.  Requires an AOD Base user and does not include Exchange for Outlook<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MSOffPro">
+							<td class="CellWithComment tdMDL">Microsoft Office Professional<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MSOffProQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="MSOffProPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MSOffProVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Microsoft Office Professional.  Requires an AOD Base user and does not include Exchange for Outlook<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MSVisStd">
+							<td class="CellWithComment tdMDL">Microsoft Visio Standard<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MSVisStdQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="MSVisStdPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MSVisStdVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Microsoft Visio Standard.  Requires an AOD Base user and does not include Exchange for Outlook<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MSVisPro">
+							<td class="CellWithComment tdMDL">Microsoft Visio Professional<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MSVisProQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="MSVisProPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MSVisProVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Microsoft Visio Professional.  Requires an AOD Base user and does not include Exchange for Outlook<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MSPrjStd">
+							<td class="CellWithComment tdMDL">Microsoft Project Standard<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MSPrjStdQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="MSPrjStdPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MSPrjStdVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Microsoft Project Standard.  Requires an AOD Base user and does not include Exchange for Outlook<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MSPrjPro">
+							<td class="CellWithComment tdMDL">Microsoft Project Professional<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MSPrjProQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="MSPrjProPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MSPrjProVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Microsoft Project Professional.  Requires an AOD Base user and does not include Exchange for Outlook<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MSExUsrSml">
+							<td class="CellWithComment tdMDL">Microsoft Exchange Mail Box - Small<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MSExUsrSmlQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="MSExUsrSmlPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MSExUsrSmlVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Small Exchange Mail Box (Up to 10 GB in Size)<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MSExUsrMed">
+							<td class="CellWithComment tdMDL">Microsoft Exchange Mail Box - Medium<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MSExUsrMedQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="MSExUsrMedPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MSExUsrMedVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Medium Exchange Mail Box (Up to 25 GB in Size)<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MSExUsrLrg">
+							<td class="CellWithComment tdMDL">Microsoft Exchange Mail Box - Large<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MSExUsrLrgQty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="MSExUsrLrgPrc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MSExUsrLrgVal"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">Large Exchange Mail Box (Up to 75 GB in Size)<span class="CellComment"></span></td>
+						</tr>
+
+						<tr>
+							<td class="tdHdrRow1" colspan="5">Other<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MiscStrg1">
+							<td class="CellWithComment tdMDL">Storage<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MiscStrg1Qty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="MiscStrg1Prc">0<span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MiscStrg1Val"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdModuleNotes tdScrollX">For storage above storage allowed under acceptable usage policy<span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MiscCust1">
+							<td class="CellWithComment tdMDL">Custom 1 Tier App<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MiscCust1Qty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MiscCust1Prc"><input class="tdNRA" min="0" onchange="checkRules(this)" type="number" value="15.00"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MiscCust1Val"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment"><input class="tdModuleNotes" onchange="checkRules(this)" type="text" value="Off list application (Standard 1 Tier Application)"><span class="CellComment"></span></td>
+						</tr>
+						
+						<tr class="trTypeLi1" id="MiscCust2">
+							<td class="CellWithComment tdMDL">Custom 1 Tier App<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MiscCust2Qty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" step="1" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MiscCust2Prc"><input class="tdNRA" min="0" onchange="checkRules(this)" type="number" value="15.00"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MiscCust2Val"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment"><input class="tdModuleNotes" onchange="checkRules(this)" type="text" value="Off list application (Standard 1 Tier Application)"><span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MiscCust3">
+							<td class="CellWithComment tdMDL">Custom App Other<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MiscCust3Qty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MiscCust3Prc"><input class="tdNRA" min="0" onchange="checkRules(this)" type="number" value="0.00"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MiscCust3Val"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment"><input class="tdModuleNotes" onchange="checkRules(this)" type="text" value="Off list application"><span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="trTypeLi1" id="MiscAdj1">
+							<td class="CellWithComment tdMDL">Custom App Other<span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MiscAdj1Qty"><input class="tdNRA" min="0" max="999" onchange="checkRules(this)" type="number" value="0"><span class="CellComment"></span></td>
+							<td class="CellWithComment" id="MiscAdj1Prc"><input class="tdNRA" min="0" onchange="checkRules(this)" type="number" value="0.00"><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA tdVal" id="MiscAdj1Val"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment"><input class="tdModuleNotes" onchange="checkRules(this)" type="text" value="Adjustments"><span class="CellComment"></span></td>
+						</tr>
+
+						<tr class="tdTotRow1" id="tblAODHostingTOT">
+							<td colspan="3"><span class="CellValue"></span><span class="CellComment"></span></td>
+							<td class="CellWithComment tdNRA" id="tblAODHostingTOTVal">0<span class="CellComment"></span></td>
+							<td><span class="CellComment"></span></td>
+						</tr>
+						</tbody>
+					</table>
+			</form>
+			<footer>
+					<div class="w3-container w3-padding-32 w3-row-padding aod-primary row">
+						<button style="float: left;" class="button" onclick="w3_close('Greentree')">&lt;- Previous</button>
+						<button style="float: right;" class="button" onclick="w3_close('Summary')">Next -&gt;</button>
+						<!-- <input type="submit" value="Submit"> -->
+					</div>	
+				</footer>
+			</div>
+			
+		<!-- Summary section -->
+        <div class="MenuSec w3-container aod-background-p5 w3-center w3-white w3-padding-32" id="Summary">
+			<h1><b>Summary and Submit</b></h1>			  
+			<p style="text-align: center;" ><b>Some summary and next steps in the process will go here....</b></p>
+			<p><br><br></p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dignissim tincidunt metus sollicitudin porta. Etiam pretium est dui, 
+				id luctus nibh rhoncus a. Nulla non interdum leo, in iaculis justo. Aenean non purus eu nulla eleifend maximus eu maximus nunc. 
+				Morbi viverra, risus et facilisis rutrum, dolor ex maximus nisi, vitae ultrices quam felis eget leo. Nullam lacinia nisi metus,
+				 eu tempus diam eleifend sed. Aliquam venenatis ante eget vehicula efficitur. Phasellus nec ex lobortis, tempus tellus et, ullamcorper nisl.
+				 
+				 <p>Sed molestie venenatis rutrum. Proin in semper ligula. Phasellus sed ipsum hendrerit, luctus mi ut, placerat eros. Nulla consectetur felis vel nulla tincidunt, tincidunt ultricies sapien tristique. Curabitur vitae arcu nibh. Etiam sit amet metus tellus. Integer porttitor dui sit amet urna malesuada, non euismod ipsum sagittis</p>
+				 <p><br><br></p>
+			<footer>
+				<div class="w3-container w3-padding-32 w3-row-padding aod-primary row">
+					<button style="float: left;" class="button" onclick="w3_close('AODHosting')">&lt;- Previous</button>
+					<!-- <input type="submit" value="Submit"> -->
+				</div>	
+			</footer>
+		</div>
+		<!-- Footer -->
+        <footer class="w3-container w3-padding-32 w3-grey">
+            <div class="w3-row-padding">
+				<div class="row">
+					<p>Add some stuff here about how great we are!!</p>
+				</div>
+            </div>
+        </footer>
+		<!-- Copywright -->
+        <div class="w3-black w3-center w3-padding-24">
+            Powered by Quokka.Works	
+        </div>
+		
+        <!-- End page content -->
+	</div>
+
+	<!-- MODAL POP-UP BOX -->
+<div id="myModal" class="modalPopUp">
+
+	<!-- Modal content -->
+	<div class="w3-container w3-center w3-animate-opacity modalPopUp-box">
+	  <div class="modalPopUp-header"><span class="close" onclick="pu_close();">&times;</span></div>
+	  <div class="modalPopUp-content" id="modalPopUpContent"></div>
+	  <div class="modalPopUp-footer"></div>
+	</div>
+  
+  </div>
+	<script src="APC.js"></script>
+</body>
+</html>

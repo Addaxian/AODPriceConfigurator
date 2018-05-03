@@ -1,0 +1,13 @@
+/* VBS Styles 1.00 April 2018 by David Sankey */
+
+/* AOD */
+.aod-primary,.aod-hover-primary:hover{color:#fff!important;background-color:#00ACF0!important}
+.aod-shade,.aod-hover-shade:hover{color:#000!important;background-color:#EBEBEB!important}
+.aod-secondary1,.aod-hover-secondary1:hover{color:#000!important;background-color:#FBAF3F!important}
+.aod-secondary2,.aod-hover-secondary2:hover{color:#000!important;background-color:#878787!important}
+.aod-sup1,.aod-hover-sup1:hover{color:#fff!important;background-color:#74913B!important}
+.aod-sup2,.aod-hover-sup2:hover{color:#fff!important;background-color:#636363!important}
+.aod-sup3,.aod-hover-sup3:hover{color:#fff!important;background-color:#C0504D!important}
+.aod-sup4,.aod-hover-sup4:hover{color:#fff!important;background-color:#9BBB59!important}
+
+.w3-white,.w3-hover-white:hover{color:#000!important;background-color:#fff!important}

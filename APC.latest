@@ -1,0 +1,2065 @@
+// STUFF THAT WILL COME FROM A DB
+// Exchange rates
+const vAUD = 1.00; // AUD Exchange Rate
+const vNZD = 1.05; // NZD Exchange Rate
+const vBPS = 0.59; // BPS Exchange Rate
+
+// Min Suite Count (Set as a variable so it can change in the future)
+const vMinSuiteCount = 4;
+
+// Greentree Prices
+/* Standard Module */
+const PGTMDLSTD = [// Greentree  price & breaks
+  [4, 577.50], // $577.50/user for first 12 users
+  [12, 288.75], // $288.75/user for the next users until 12
+  [40, 231.00], // $231.00/user for the next users until 40
+  [80, 173.25],
+  [199, 115.50],
+  [9999, 999.00], // Failsafe catchall as we do not know what the pricing is after 199 users
+];
+
+/* Another Table */
+const PGTMDLM_1 = [ // Greentree Mobile Table 1 Prices - Used for Mobile Timesheets
+  [40, 110.00 * 1.05],
+  [80, 82.5 * 1.05],
+  [120, 55 * 1.05],
+  [9999, 27.50 * 1.05],
+];
+
+/* Another Table */
+const PGTMDLM_2 = [// Greentree Mobile Table 1 Prices - Used for eRequisitions
+  [30, 110.00 * 1.05],
+  [70, 82.5 * 1.05],
+  [110, 55 * 1.05],
+  [9999, 27.50 * 1.05],
+];
+
+/* Another Table */
+const PGTMDLE_1 = [// Greentree Mobile Table 1 Prices - EDI - Financials
+  [12, (6050 / 12) * 1.05],
+  [16, 343.75 * 1.05],
+  [28, 275 * 1.05],
+  [80, 220 * 1.05],
+  [9999, 165 * 1.05],
+];
+
+/* System Manager */
+const PGTMDLSM1 = [// Greentree price & breaks
+  [8, 577.50], // $577.50/user for first 8 users
+  [12, 433.125], // $433.13/user for the next users until 12
+  [16, 360.9375],
+  [28, 288.75],
+  [80, 231.00],
+  [199, 173.25],
+  [9999, 999.00], // Failsafe catchall as we do not know what the pricing is after 199 users
+];
+
+/* Fixed Price Schedule */
+const SchFixedP = [
+  // Linear Prices
+  ["ACO", 577.50],
+  ["CFC", 115.50],
+  // Fixed Prices
+  ["FA_", 4000 * 1.1 * 1.05],
+  ["QD_", 10000 * 1.1 * 1.05],
+  ["BDR", 2000 * 1.5 * 1.1 * 1.05],
+  ["WFD", 2000 * 1.5 * 1.1 * 1.05],
+  ["WFI", 2000 * 1.1 * 1.05],
+  ["ERQ", 1000 * 1.1 * 1.05],
+  ["ERP", 2000 * 1.1 * 1.05],
+  ["EAP", 1000 * 1.1 * 1.05],
+  ["OWB", 3465],
+];
+
+// AOD Prices
+const AOD_GTDBSmallPrc = 400; // Hosting price for Greentree DB for <= 7 Users
+const AOD_GTDBLargePrc = 500; // Hosting price for Greentree DB for > 7 Users
+const AOD_GTDBTestPrc = 500; // Price for each additional Greentree database hosted.  Users not counted.
+const AOD_AODBasePrc = 60; // Per user price for any user that requires to access a windows client on AOD.
+const AOD_GTFullPrc = 20.50; // Per user price for a full windows client - These users also get access to the Greentree Browser included
+const AOD_GWPWebViewPrc = 250; // Per WebView Portal price, Users not counted but subject to fair use policy.
+const AOD_GWPeAppPrc = 250; // Per eApprovals Portal price, Users not counted but subject to fair use policy.
+const AOD_GWPeTshPrc = 250; // Per eTimsheets Portal price, Users not counted but subject to fair use policy.
+const AOD_GWPeHRPrc = 250; // Per eHR Portal price, Users not counted but subject to fair use policy.
+const AOD_GWPeReqPrc = 250; // Per eRequisitions Portal price, Users not counted but subject to fair use policy.
+const AOD_GTBBasePrc = 250; // Per Base Browser Portal price and one is required if one or more Browser Mobile suites are required, Users not counted but subject to fair use policy.
+const AOD_GTBCRMPrc = 200; // Per CRM Mobile Portal price in addition to the Base Mobile Portal. Users not counted but subject to fair use policy.
+const AOD_GTBSalesPrc = 200; // Per Sales Mobile Portal price in addition to the Base Mobile Portal. Users not counted but subject to fair use policy.
+const AOD_GTBSrvcPrc = 200; // Per Service Mobile Portal price in addition to the Base Mobile Portal. Users not counted but subject to fair use policy.
+const AOD_GTBHRPrc = 200; // Per HR Mobile Portal price in addition to the Base Mobile Portal. Users not counted but subject to fair use policy.
+const AOD_GTBTshPrc = 200; // Per Timesheet Mobile Portal price in addition to the Base Mobile Portal. Users not counted but subject to fair use policy.
+const AOD_GTEBasePrc = 250; // Required as a base if ANY eDoc ONLY users exist.  Full Greentree Clients get eDocs included the Full Greentree license.
+const AOD_GTEUserPrc = 30; // Per Greentree ONLY user.  An eDocs ONLY user is not allowed access to any other Greentree Windows client functionality.
+const AOD_QLKSvrLitePrc = 500; // Per QlikView/QlikSense Server.  Does not include any users.
+const AOD_QLKSvrPlusPrc = 700; // Per QlikView/QlikSense Server.  Does not include any users.
+const AOD_QLKSvrXtrmPrc = 900; // Per QlikView/QlikSense Server.  Does not include any users.
+const AOD_QLKUserPrc = 15; // Per QlikView/QlikSense User.  Does not include AOD Base access for the Windows QlikView client.
+const AOD_MSOffStdPrc = 25; // Per Microsoft Office Standard User.  Does not include AOD Base access for the Windows client.
+const AOD_MSOffProPrc = 49.75; // Per Microsoft Office Professional User.  Does not include AOD Base access for the Windows client.
+const AOD_MSVisStdPrc = 12; // Per Microsoft Visio Standard User.  Does not include AOD Base access for the Windows client.
+const AOD_MSVisProPrc = 26.30; // Per Microsoft Visio Professional User.  Does not include AOD Base access for the Windows client.
+const AOD_MSPrjStdPrc = 27.95; // Per Microsoft Project Standard User.  Does not include AOD Base access for the Windows client.
+const AOD_MSPrjProPrc = 46.60; // Per Microsoft Project Professional User.  Does not include AOD Base access for the Windows client.
+const AOD_MSExUsrSmlPrc = 10; // Per Microsoft hosted mail box - Small.
+const AOD_MSExUsrMedPrc = 20; // Per Microsoft hosted mail box - Medium.
+const AOD_MSExUsrLrgPrc = 50; // Per Microsoft hosted mail box - Large.
+const AOD_MiscStrg1Prc = 1.25; // Extra Storage Charge (For storage above storage allowed under acceptable usage policy).
+const AOD_MiscCust1Prc = 15; // A typical single tier application price per user.
+
+/* Standard Issue Numbers */
+const issueType = [// Issue Types
+  // 100 Range: GTSuite Issues
+  [100, "Inadequate System Manager Licenses"],
+  [101, "Reducing a Perpetual License Count"],
+  [102, "Module user count is zero"],
+  // 200 Range: Specific GT Module Issues
+  [201, "Require GL Module"],
+  [202, "Require AR Module"],
+  [203, "Require IN Module"],
+  [204, "Require SO Module"],
+  [205, "Require PO Module"],
+  [206, "Require Manufacturing Module"],
+  [207, "Require Job costing Module"],
+  [208, "Require Contacts and Relationships Module"],
+  [209, "Require Customer Support Module"],
+  [210, "Require Requisitions Module"],
+  [211, "Require Workflow Designer Module"],
+  [212, "Require eRquisitions Module"],
+  [213, "Require A&A Module"],
+  [214, "Require eApprovals Module"],
+  // 300 Range: Specific GT Suite Issues
+  [300, "Require a Total Users Count"],
+  [301, "Require the Financial Suite"],
+  [302, "Require the Distribution Suite"],
+  [303, "Require the Job Cost Suite"],
+  [304, "Require the Manufacturing Suite"],
+  [305, "Require the CRM Basic Suite"],
+  [306, "Require the CRM Sales Suite"],
+  [307, "Require the CRM Support Suite"],
+  [308, "Require the CRM Assets Suite"],
+  [309, "Require the Supply Chain Suite"],
+  [310, "Require the POS Suite"],
+  [311, "Require the Global Finance Suite"],
+  // 500 Range: AODHosting Issues
+  [500, "AOD Base Users < Greentree System Manager Count"],
+  [501, "AOD Full Windows Users < Greentree System Manager Count"],
+];
+
+// GLOBAL STUFF
+var issuesLog; // Global array holding issues  (issueType#, flagged elementID, originating elementID)
+
+/* Initialise the Pricing Tables */
+/* exported InitialiseForm */
+function InitialiseForm() { // eslint-disable-line no-unused-vars
+  issuesLog = []; // (issueType#, originating elementID, flagged elementID)
+  openMenuSec("Greentree"); // For now while testing, open to the Greentree menu
+}
+
+// CODE FOR PRICING MANAGEMNT
+// Calculate Greentree Prices
+// Standard Module Pricing
+
+// Sets AOD the unit prices based on currency
+function SetPrices() {
+  var cur;
+  switch (document.getElementById("currency").value) {
+    case "AUD":
+      cur = vAUD;
+      break;
+    case "NZD":
+      cur = vNZD;
+      break;
+    case "BPS":
+      cur = vBPS;
+      break;
+    default:
+      cur = 999;
+  }
+  document.getElementById("GTDBSmallPrc").innerText = (AOD_GTDBSmallPrc * cur).toFixed(2);
+  document.getElementById("GTDBLargePrc").innerText = (AOD_GTDBLargePrc * cur).toFixed(2);
+  document.getElementById("GTDBTestPrc").innerText = (AOD_GTDBTestPrc * cur).toFixed(2);
+  document.getElementById("AODBasePrc").innerText = (AOD_AODBasePrc * cur).toFixed(2);
+  document.getElementById("GTFullPrc").innerText = (AOD_GTFullPrc * cur).toFixed(2);
+  document.getElementById("GWPWebViewPrc").innerText = (AOD_GWPWebViewPrc * cur).toFixed(2);
+  document.getElementById("GWPeAppPrc").innerText = (AOD_GWPeAppPrc * cur).toFixed(2);
+  document.getElementById("GWPeTshPrc").innerText = (AOD_GWPeTshPrc * cur).toFixed(2);
+  document.getElementById("GWPeHRPrc").innerText = (AOD_GWPeHRPrc * cur).toFixed(2);
+  document.getElementById("GWPeReqPrc").innerText = (AOD_GWPeReqPrc * cur).toFixed(2);
+  document.getElementById("GTBBasePrc").innerText = (AOD_GTBBasePrc * cur).toFixed(2);
+  document.getElementById("GTBCRMPrc").innerText = (AOD_GTBCRMPrc * cur).toFixed(2);
+  document.getElementById("GTBSalesPrc").innerText = (AOD_GTBSalesPrc * cur).toFixed(2);
+  document.getElementById("GTBSrvcPrc").innerText = (AOD_GTBSrvcPrc * cur).toFixed(2);
+  document.getElementById("GTBHRPrc").innerText = (AOD_GTBHRPrc * cur).toFixed(2);
+  document.getElementById("GTBTshPrc").innerText = (AOD_GTBTshPrc * cur).toFixed(2);
+  document.getElementById("GTEBasePrc").innerText = (AOD_GTEBasePrc * cur).toFixed(2);
+  document.getElementById("GTEUserPrc").innerText = (AOD_GTEUserPrc * cur).toFixed(2);
+  document.getElementById("QLKSvrLitePrc").innerText = (AOD_QLKSvrLitePrc * cur).toFixed(2);
+  document.getElementById("QLKSvrPlusPrc").innerText = (AOD_QLKSvrPlusPrc * cur).toFixed(2);
+  document.getElementById("QLKSvrXtrmPrc").innerText = (AOD_QLKSvrXtrmPrc * cur).toFixed(2);
+  document.getElementById("QLKUserPrc").innerText = (AOD_QLKUserPrc * cur).toFixed(2);
+  document.getElementById("MSOffStdPrc").innerText = (AOD_MSOffStdPrc * cur).toFixed(2);
+  document.getElementById("MSOffProPrc").innerText = (AOD_MSOffProPrc * cur).toFixed(2);
+  document.getElementById("MSVisStdPrc").innerText = (AOD_MSVisStdPrc * cur).toFixed(2);
+  document.getElementById("MSVisProPrc").innerText = (AOD_MSVisProPrc * cur).toFixed(2);
+  document.getElementById("MSPrjStdPrc").innerText = (AOD_MSPrjStdPrc * cur).toFixed(2);
+  document.getElementById("MSPrjProPrc").innerText = (AOD_MSPrjProPrc * cur).toFixed(2);
+  document.getElementById("MSExUsrSmlPrc").innerText = (AOD_MSExUsrSmlPrc * cur).toFixed(2);
+  document.getElementById("MSExUsrMedPrc").innerText = (AOD_MSExUsrMedPrc * cur).toFixed(2);
+  document.getElementById("MSExUsrLrgPrc").innerText = (AOD_MSExUsrLrgPrc * cur).toFixed(2);
+  document.getElementById("MiscStrg1Prc").innerText = (AOD_MiscStrg1Prc * cur).toFixed(2);
+  document.getElementById("MiscCust1Prc").innerText = (AOD_MiscCust1Prc * cur).toFixed(2);
+}
+
+/* set/run code for changing the Partner Margin */
+function SetPartnerMarginLabel(evt) { // eslint-disable-line no-unused-vars
+  if (evt.value === 0) {
+    document.getElementById("marginLbl").innerText = "Investment Calculator";
+  } else {
+    document.getElementById("marginLbl").innerText = "Partner Margin";
+  }
+}
+
+/* CHECK RULES: On a change, check for any rules and update table accordinly */
+function checkRules(evt) { // eslint-disable-line no-unused-vars
+  var eleTmp, qtyTmp, id;
+
+  id = evt.id;
+
+  if (id === null) { // This function might not be called from an element, so allow for undefined!
+    id = "undefined";
+  }
+
+  const lineName = evt.id.substr(0, id.length - 3);
+
+  const eleTbl = getParentTable(document.getElementById(lineName)); // Get the table the event is coming from
+
+  switch (eleTbl.id) { // Select rules based on the table
+    case "tblGTSuite":// For the Greentree Suite Table
+      checkMinVal(evt, vMinSuiteCount); // Apply Minimum user rule
+
+      // If Perpetual License, check the Required Count is >= the Current Count
+      if (document.getElementById("licenseType").value === "Perpetual" && getCellValue(document.getElementById(lineName + "Rus")) < getCellValue(document.getElementById(lineName + "Cus"))) {
+        setIssue(101, lineName + "Rus", lineName + "Rus", true);
+      } else {
+        setIssue(101, lineName + "Rus", lineName + "Rus", false);
+      }
+
+      // *** Rules based on individual SUITE Line start here ***
+      switch (id) {
+        case "GTSuiteFINCus":
+          qtyTmp = getCellValue(evt);
+          if (document.getElementById("GTModuleAP_CHK").checked) { document.getElementById("GTModuleAP_CUS").innerText = qtyTmp; calcLine("GTModuleAP_"); }
+          if (document.getElementById("GTModuleAR_CHK").checked) { document.getElementById("GTModuleAR_CUS").innerText = qtyTmp; calcLine("GTModuleAR_"); }
+          if (document.getElementById("GTModuleARDCHK").checked) { document.getElementById("GTModuleARDCUS").innerText = qtyTmp; calcLine("GTModuleARD"); }
+          if (document.getElementById("GTModuleARACHK").checked) { document.getElementById("GTModuleARACUS").innerText = qtyTmp; calcLine("GTModuleARA"); }
+          if (document.getElementById("GTModuleGL_CHK").checked) { document.getElementById("GTModuleGL_CUS").innerText = qtyTmp; calcLine("GTModuleGL_"); }
+          if (document.getElementById("GTModuleGLCCHK").checked) { document.getElementById("GTModuleGLCCUS").innerText = qtyTmp; calcLine("GTModuleGLC"); }
+          if (document.getElementById("GTModuleGLRCHK").checked) { document.getElementById("GTModuleGLRCUS").innerText = qtyTmp; calcLine("GTModuleGLR"); }
+          if (document.getElementById("GTModuleGLTCHK").checked) { document.getElementById("GTModuleGLTCUS").innerText = qtyTmp; calcLine("GTModuleGLT"); }
+          if (document.getElementById("GTModuleSECCHK").checked) { document.getElementById("GTModuleSECCUS").innerText = qtyTmp; calcLine("GTModuleSEC"); }
+          if (document.getElementById("GTModuleFC_CHK").checked) { document.getElementById("GTModuleFC_CUS").innerText = qtyTmp; calcLine("GTModuleFC_"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuiteFINRus":
+          qtyTmp = getCellValue(evt);
+          if (qtyTmp > 0) {
+            setIssue(301, "*", id, false); // Clear errors against this element not being checked
+            if (document.getElementById("GTModuleAP_CHK").checked) { document.getElementById("GTModuleAP_RUS").innerText = getCellValue(evt); calcLine("GTModuleAP_"); }
+            if (document.getElementById("GTModuleAR_CHK").checked) { document.getElementById("GTModuleAR_RUS").innerText = getCellValue(evt); calcLine("GTModuleAR_"); }
+            if (document.getElementById("GTModuleARDCHK").checked) { document.getElementById("GTModuleARDRUS").innerText = getCellValue(evt); calcLine("GTModuleARD"); }
+            if (document.getElementById("GTModuleARACHK").checked) { document.getElementById("GTModuleARARUS").innerText = getCellValue(evt); calcLine("GTModuleARA"); }
+            if (document.getElementById("GTModuleGL_CHK").checked) { document.getElementById("GTModuleGL_RUS").innerText = getCellValue(evt); calcLine("GTModuleGL_"); }
+            if (document.getElementById("GTModuleGLCCHK").checked) { document.getElementById("GTModuleGLCRUS").innerText = getCellValue(evt); calcLine("GTModuleGLC"); }
+            if (document.getElementById("GTModuleGLRCHK").checked) { document.getElementById("GTModuleGLRRUS").innerText = getCellValue(evt); calcLine("GTModuleGLR"); }
+            if (document.getElementById("GTModuleGLTCHK").checked) { document.getElementById("GTModuleGLTRUS").innerText = getCellValue(evt); calcLine("GTModuleGLT"); }
+            if (document.getElementById("GTModuleSECCHK").checked) { document.getElementById("GTModuleSECRUS").innerText = getCellValue(evt); calcLine("GTModuleSEC"); }
+            if (document.getElementById("GTModuleFC_CHK").checked) { document.getElementById("GTModuleFC_RUS").innerText = getCellValue(evt); calcLine("GTModuleFC_"); }
+            if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          } else {
+            if (document.getElementById("GTModuleAP_CHK").checked) { setIssue(301, "GTModuleAP_RHK", evt.id, true); }
+            if (document.getElementById("GTModuleAR_CHK").checked) { setIssue(301, "GTModuleAR_RUS", evt.id, true); }
+            if (document.getElementById("GTModuleARDCHK").checked) { setIssue(301, "GTModuleARDRUS", evt.id, true); }
+            if (document.getElementById("GTModuleARACHK").checked) { setIssue(301, "GTModuleARARUS", evt.id, true); }
+            if (document.getElementById("GTModuleGL_CHK").checked) { setIssue(301, "GTModuleGL_RUS", evt.id, true); }
+            if (document.getElementById("GTModuleGLCCHK").checked) { setIssue(301, "GTModuleGLCRUS", evt.id, true); }
+            if (document.getElementById("GTModuleGLRCHK").checked) { setIssue(301, "GTModuleGLRRUS", evt.id, true); }
+            if (document.getElementById("GTModuleGLTCHK").checked) { setIssue(301, "GTModuleGLTRUS", evt.id, true); }
+            if (document.getElementById("GTModuleSECCHK").checked) { setIssue(301, "GTModuleSECRUS", evt.id, true); }
+            if (document.getElementById("GTModuleFC_CHK").checked) { setIssue(301, "GTModuleFC_RUS", evt.id, true); }
+          }
+          break;
+
+        case "GTSuiteDISCus":
+          if (document.getElementById("GTModuleIN_CHK").checked) { document.getElementById("GTModuleIN_CUS").innerText = getCellValue(evt); calcLine("GTModuleIN_"); }
+          if (document.getElementById("GTModuleINRCHK").checked) { document.getElementById("GTModuleINRCUS").innerText = getCellValue(evt); calcLine("GTModuleINR"); }
+          if (document.getElementById("GTModuleINACHK").checked) { document.getElementById("GTModuleINACUS").innerText = getCellValue(evt); calcLine("GTModuleINA"); }
+          if (document.getElementById("GTModuleINSCHK").checked) { document.getElementById("GTModuleINSCUS").innerText = getCellValue(evt); calcLine("GTModuleINS"); }
+          if (document.getElementById("GTModuleINICHK").checked) { document.getElementById("GTModuleINICUS").innerText = getCellValue(evt); calcLine("GTModuleINI"); }
+          if (document.getElementById("GTModuleINQCHK").checked) { document.getElementById("GTModuleINQCUS").innerText = getCellValue(evt); calcLine("GTModuleINQ"); }
+          if (document.getElementById("GTModuleINWCHK").checked) { document.getElementById("GTModuleINWCUS").innerText = getCellValue(evt); calcLine("GTModuleINW"); }
+          if (document.getElementById("GTModuleSO_CHK").checked) { document.getElementById("GTModuleSO_CUS").innerText = getCellValue(evt); calcLine("GTModuleSO_"); }
+          if (document.getElementById("GTModuleSOPCHK").checked) { document.getElementById("GTModuleSOPCUS").innerText = getCellValue(evt); calcLine("GTModuleSOP"); }
+          if (document.getElementById("GTModuleSOFCHK").checked) { document.getElementById("GTModuleSOFCUS").innerText = getCellValue(evt); calcLine("GTModuleSOF"); }
+          if (document.getElementById("GTModulePO_CHK").checked) { document.getElementById("GTModulePO_CUS").innerText = getCellValue(evt); calcLine("GTModulePO_"); }
+          if (document.getElementById("GTModulePOICHK").checked) { document.getElementById("GTModulePOICUS").innerText = getCellValue(evt); calcLine("GTModulePOI"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuiteDISRus":
+          if (document.getElementById("GTModuleIN_CHK").checked) { document.getElementById("GTModuleIN_RUS").innerText = getCellValue(evt); calcLine("GTModuleIN_"); }
+          if (document.getElementById("GTModuleINRCHK").checked) { document.getElementById("GTModuleINRRUS").innerText = getCellValue(evt); calcLine("GTModuleINR"); }
+          if (document.getElementById("GTModuleINACHK").checked) { document.getElementById("GTModuleINARUS").innerText = getCellValue(evt); calcLine("GTModuleINA"); }
+          if (document.getElementById("GTModuleINSCHK").checked) { document.getElementById("GTModuleINSRUS").innerText = getCellValue(evt); calcLine("GTModuleINS"); }
+          if (document.getElementById("GTModuleINICHK").checked) { document.getElementById("GTModuleINIRUS").innerText = getCellValue(evt); calcLine("GTModuleINI"); }
+          if (document.getElementById("GTModuleINQCHK").checked) { document.getElementById("GTModuleINQRUS").innerText = getCellValue(evt); calcLine("GTModuleINQ"); }
+          if (document.getElementById("GTModuleINWCHK").checked) { document.getElementById("GTModuleINWRUS").innerText = getCellValue(evt); calcLine("GTModuleINW"); }
+          if (document.getElementById("GTModuleSO_CHK").checked) { document.getElementById("GTModuleSO_RUS").innerText = getCellValue(evt); calcLine("GTModuleSO_"); }
+          if (document.getElementById("GTModuleSOPCHK").checked) { document.getElementById("GTModuleSOPRUS").innerText = getCellValue(evt); calcLine("GTModuleSOP"); }
+          if (document.getElementById("GTModuleSOFCHK").checked) { document.getElementById("GTModuleSOFRUS").innerText = getCellValue(evt); calcLine("GTModuleSOF"); }
+          if (document.getElementById("GTModulePO_CHK").checked) { document.getElementById("GTModulePO_RUS").innerText = getCellValue(evt); calcLine("GTModulePO_"); }
+          if (document.getElementById("GTModulePOICHK").checked) { document.getElementById("GTModulePOIRUS").innerText = getCellValue(evt); calcLine("GTModulePOI"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          break;
+
+        case "GTSuiteGBLCus":
+          if (document.getElementById("GTModuleCONCHK").checked) { document.getElementById("GTModuleCONCUS").innerText = getCellValue(evt); calcLine("GTModuleCON"); }
+          if (document.getElementById("GTModuleGFRCHK").checked) { document.getElementById("GTModuleGFRCUS").innerText = getCellValue(evt); calcLine("GTModuleGFR"); }
+          if (document.getElementById("GTModuleGFTCHK").checked) { document.getElementById("GTModuleGFTCUS").innerText = getCellValue(evt); calcLine("GTModuleGFT"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuiteGBLRus":
+          if (document.getElementById("GTModuleCONCHK").checked) { document.getElementById("GTModuleCONRUS").innerText = getCellValue(evt); calcLine("GTModuleCON"); }
+          if (document.getElementById("GTModuleGFRCHK").checked) { document.getElementById("GTModuleGFRRUS").innerText = getCellValue(evt); calcLine("GTModuleGFR"); }
+          if (document.getElementById("GTModuleGFTCHK").checked) { document.getElementById("GTModuleGFTRUS").innerText = getCellValue(evt); calcLine("GTModuleGFT"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          break;
+
+        case "GTSuiteJBCCus":
+          if (document.getElementById("GTModuleJC_CHK").checked) { document.getElementById("GTModuleJC_CUS").innerText = getCellValue(evt); calcLine("GTModuleJC_"); }
+          if (document.getElementById("GTModuleJCACHK").checked) { document.getElementById("GTModuleJCACUS").innerText = getCellValue(evt); calcLine("GTModuleJCA"); }
+          if (document.getElementById("GTModuleJCPCHK").checked) { document.getElementById("GTModuleJCPCUS").innerText = getCellValue(evt); calcLine("GTModuleJCP"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuiteJBCRus":
+          if (document.getElementById("GTModuleJC_CHK").checked) { document.getElementById("GTModuleJC_RUS").innerText = getCellValue(evt); calcLine("GTModuleJC_"); }
+          if (document.getElementById("GTModuleJCACHK").checked) { document.getElementById("GTModuleJCARUS").innerText = getCellValue(evt); calcLine("GTModuleJCA"); }
+          if (document.getElementById("GTModuleJCPCHK").checked) { document.getElementById("GTModuleJCPRUS;").innerText = getCellValue(evt); calcLine("GTModuleJCP"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          break;
+
+        case "GTSuiteMANCus":
+          if (document.getElementById("GTModuleMRBCHK").checked) { document.getElementById("GTModuleMRBCUS").innerText = getCellValue(evt); calcLine("GTModuleMRB"); }
+          if (document.getElementById("GTModuleMRPCHK").checked) { document.getElementById("GTModuleMRPCUS").innerText = getCellValue(evt); calcLine("GTModuleMRP"); }
+          if (document.getElementById("GTModuleMRFCHK").checked) { document.getElementById("GTModuleMRFCUS").innerText = getCellValue(evt); calcLine("GTModuleMRF"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuiteMANRus":
+          if (document.getElementById("GTModuleMRBCHK").checked) { document.getElementById("GTModuleMRBRUS").innerText = getCellValue(evt); calcLine("GTModuleMRB"); }
+          if (document.getElementById("GTModuleMRPCHK").checked) { document.getElementById("GTModuleMRPRUS").innerText = getCellValue(evt); calcLine("GTModuleMRP"); }
+          if (document.getElementById("GTModuleMRFCHK").checked) { document.getElementById("GTModuleMRFRUS").innerText = getCellValue(evt); calcLine("GTModuleMRF"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          break;
+
+        case "GTSuiteCBSCus":
+          if (document.getElementById("GTModuleCCRCHK").checked) { document.getElementById("GTModuleCCRCUS").innerText = getCellValue(evt); calcLine("GTModuleCCR"); }
+          if (document.getElementById("GTModuleCDCCHK").checked) { document.getElementById("GTModuleCDCCUS").innerText = getCellValue(evt); calcLine("GTModuleCDC"); }
+          if (document.getElementById("GTModuleCKBCHK").checked) { document.getElementById("GTModuleCKBCUS").innerText = getCellValue(evt); calcLine("GTModuleCKB"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuiteCBSRus":
+          if (document.getElementById("GTModuleCCRCHK").checked) { document.getElementById("GTModuleCCRRUS").innerText = getCellValue(evt); calcLine("GTModuleCCR"); }
+          if (document.getElementById("GTModuleCDCCHK").checked) { document.getElementById("GTModuleCDCRUS").innerText = getCellValue(evt); calcLine("GTModuleCDC"); }
+          if (document.getElementById("GTModuleCKBCHK").checked) { document.getElementById("GTModuleCKBRUS").innerText = getCellValue(evt); calcLine("GTModuleCKB"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          break;
+
+        case "GTSuiteCSLCus":
+          if (document.getElementById("GTModuleCSMCHK").checked) { document.getElementById("GTModuleCSMCUS").innerText = getCellValue(evt); calcLine("GTModuleCSM"); }
+          if (document.getElementById("GTModuleCBMCHK").checked) { document.getElementById("GTModuleCBMCUS").innerText = getCellValue(evt); calcLine("GTModuleCBM"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuiteCSLRus":
+          if (document.getElementById("GTModuleCSMCHK").checked) { document.getElementById("GTModuleCSMRUS").innerText = getCellValue(evt); calcLine("GTModuleCSM"); }
+          if (document.getElementById("GTModuleCBMCHK").checked) { document.getElementById("GTModuleCBMRUS").innerText = getCellValue(evt); calcLine("GTModuleCBM"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          break;
+
+        case "GTSuiteCSUCus":
+          if (document.getElementById("GTModuleCCSCHK").checked) { document.getElementById("GTModuleCCSCUS").innerText = getCellValue(evt); calcLine("GTModuleCCS"); }
+          if (document.getElementById("GTModuleCCTCHK").checked) { document.getElementById("GTModuleCCTCUS").innerText = getCellValue(evt); calcLine("GTModuleCCT"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuiteCSURus":
+          if (document.getElementById("GTModuleCCSCHK").checked) { document.getElementById("GTModuleCCSRUS").innerText = getCellValue(evt); calcLine("GTModuleCCS"); }
+          if (document.getElementById("GTModuleCCTCHK").checked) { document.getElementById("GTModuleCCTRUS").innerText = getCellValue(evt); calcLine("GTModuleCCT"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          break;
+
+        case "GTSuiteCASCus":
+          if (document.getElementById("GTModuleAM_CHK").checked) { document.getElementById("GTModuleAM_CUS").innerText = getCellValue(evt); calcLine("GTModuleAM_"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuiteCASRus":
+          if (document.getElementById("GTModuleAM_CHK").checked) { document.getElementById("GTModuleAM_RUS").innerText = getCellValue(evt); calcLine("GTModuleAM_"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          break;
+
+        case "GTSuiteSCMCus":
+          if (document.getElementById("GTModuleSCRCHK").checked) { document.getElementById("GTModuleSCRCUS").innerText = getCellValue(evt); calcLine("GTModuleSCR"); }
+          if (document.getElementById("GTModuleSCACHK").checked) { document.getElementById("GTModuleSCACUS").innerText = getCellValue(evt); calcLine("GTModuleSCA"); }
+          if (document.getElementById("GTModuleCCICHK").checked) { document.getElementById("GTModuleCCICUS").innerText = getCellValue(evt); calcLine("GTModuleCCI"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuiteSCMRus":
+          if (document.getElementById("GTModuleSCRCHK").checked) { document.getElementById("GTModuleSCRRUS").innerText = getCellValue(evt); calcLine("GTModuleSCR"); }
+          if (document.getElementById("GTModuleSCACHK").checked) { document.getElementById("GTModuleSCARUS").innerText = getCellValue(evt); calcLine("GTModuleSCA"); }
+          if (document.getElementById("GTModuleCCICHK").checked) { document.getElementById("GTModuleCCIRUS").innerText = getCellValue(evt); calcLine("GTModuleCCI"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          break;
+
+        case "GTSuitePOSCus":
+          if (document.getElementById("GTModulePOSCHK").checked) { document.getElementById("GTModulePOSCUS").innerText = getCellValue(evt); calcLine("GTModulePOS"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTCus"))) { setIssue(100, id, "GTSuiteTOTCus", true); } else { setIssue(100, id, "GTSuiteTOTCus", false); }
+          break;
+
+        case "GTSuitePOSRus":
+          if (document.getElementById("GTModulePOSCHK").checked) { document.getElementById("GTModulePOSRUS").innerText = getCellValue(evt); calcLine("GTModulePOS"); }
+          if (getCellValue(evt) > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(100, id, "GTSuiteTOTRus", true); } else { setIssue(100, id, "GTSuiteTOTRus", false); }
+          break;
+
+        case "GTSuiteTOTCus":
+          document.getElementById("GTModuleSM_CUS").innerText = getCellValue(document.getElementById("GTSuiteTOTCus"));
+          calcLine("GTModuleSM_");
+
+          if (document.getElementById("GTModuleWFACHK").checked) { document.getElementById("GTModuleWFACUS").innerText = getCellValue(evt); calcLine("GTModuleWFA"); }
+          if (document.getElementById("GTModuleWFBCHK").checked) { document.getElementById("GTModuleWFBCUS").innerText = getCellValue(evt); calcLine("GTModuleWFB"); }
+          if (document.getElementById("GTModuleWFSCHK").checked) { document.getElementById("GTModuleWFSCUS").innerText = getCellValue(evt); calcLine("GTModuleWFS"); }
+          if (document.getElementById("GTModuleSQLCHK").checked) { document.getElementById("GTModuleSQLCUS").innerText = getCellValue(evt); calcLine("GTModuleSQL"); }
+          if (document.getElementById("GTModuleGSICHK").checked) { document.getElementById("GTModuleGSICUS").innerText = getCellValue(evt); calcLine("GTModuleGSI"); }
+          if (document.getElementById("GTModuleGSTCHK").checked) { document.getElementById("GTModuleGSTCUS").innerText = getCellValue(evt); calcLine("GTModuleGST"); }
+          if (document.getElementById("GTModuleOWBCHK").checked) { document.getElementById("GTModuleOWBCUS").innerText = getCellValue(evt); calcLine("GTModuleOWB"); }
+
+          qtyTmp = getCellValue(evt); if (qtyTmp > 0 && qtyTmp < 12) { qtyTmp = 12; }
+          if (document.getElementById("GTModuleEDDCHK").checked) {
+            document.getElementById("GTModuleEDDCUS").innerText = qtyTmp;
+          } else {
+            document.getElementById("GTModuleEDFCUS").innerText = "";
+          }
+          calcLine("GTModuleEDD");
+
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteFINCus"))) { setIssue(100, "GTSuiteFINCus", id, true); } else { setIssue(100, "GTSuiteFINCus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteDISCus"))) { setIssue(100, "GTSuiteDISCus", id, true); } else { setIssue(100, "GTSuiteDISCus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteJBCCus"))) { setIssue(100, "GTSuiteJBCCus", id, true); } else { setIssue(100, "GTSuiteJBCCus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteMANCus"))) { setIssue(100, "GTSuiteMANCus", id, true); } else { setIssue(100, "GTSuiteMANCus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteCBSCus"))) { setIssue(100, "GTSuiteCBSCus", id, true); } else { setIssue(100, "GTSuiteCBSCus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteCSLCus"))) { setIssue(100, "GTSuiteCSLCus", id, true); } else { setIssue(100, "GTSuiteCSLCus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteCSUCus"))) { setIssue(100, "GTSuiteCSUCus", id, true); } else { setIssue(100, "GTSuiteCSUCus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteCASCus"))) { setIssue(100, "GTSuiteCASCus", id, true); } else { setIssue(100, "GTSuiteCASCus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteSCMCus"))) { setIssue(100, "GTSuiteSCMCus", id, true); } else { setIssue(100, "GTSuiteSCMCus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuitePOSCus"))) { setIssue(100, "GTSuitePOSCus", id, true); } else { setIssue(100, "GTSuitePOSCus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteGBLCus"))) { setIssue(100, "GTSuiteGBLCus", id, true); } else { setIssue(100, "GTSuiteGBLCus", id, false); }
+          break;
+
+        case "GTSuiteTOTRus":
+          qtyTmp = getCellValue(document.getElementById("GTSuiteTOTRus"));
+          if (qtyTmp > 0) {
+            document.getElementById("GTModuleSM_CHK").checked = true;
+          } else {
+            document.getElementById("GTModuleSM_CHK").checked = false;
+          }
+          document.getElementById("GTModuleSM_RUS").innerText = qtyTmp;
+          calcLine("GTModuleSM_");
+
+          if (document.getElementById("GTModuleWFACHK").checked) { document.getElementById("GTModuleWFARUS").innerText = getCellValue(evt); calcLine("GTModuleWFA"); }
+          if (document.getElementById("GTModuleWFBCHK").checked) { document.getElementById("GTModuleWFBRUS").innerText = getCellValue(evt); calcLine("GTModuleWFB"); }
+          if (document.getElementById("GTModuleWFSCHK").checked) { document.getElementById("GTModuleWFSRUS").innerText = getCellValue(evt); calcLine("GTModuleWFS"); }
+          if (document.getElementById("GTModuleSQLCHK").checked) { document.getElementById("GTModuleSQLRUS").innerText = getCellValue(evt); calcLine("GTModuleSQL"); }
+          if (document.getElementById("GTModuleGSICHK").checked) { document.getElementById("GTModuleGSIRUS").innerText = getCellValue(evt); calcLine("GTModuleGSI"); }
+          if (document.getElementById("GTModuleGSTCHK").checked) { document.getElementById("GTModuleGSTRUS").innerText = getCellValue(evt); calcLine("GTModuleGST"); }
+          if (document.getElementById("GTModuleOWBCHK").checked) { document.getElementById("GTModuleOWBRUS").innerText = getCellValue(evt); calcLine("GTModuleOWB"); }
+
+          qtyTmp = getCellValue(evt); if (qtyTmp > 0 && qtyTmp < 12) { qtyTmp = 12; }
+          if (document.getElementById("GTModuleEDDCHK").checked) {
+            document.getElementById("GTModuleEDDRUS").innerText = qtyTmp;
+          } else {
+            document.getElementById("GTModuleEDFRUS").innerText = "";
+          }
+          calcLine("GTModuleEDD");
+
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteFINRus"))) { setIssue(100, "GTSuiteFINRus", id, true); } else { setIssue(100, "GTSuiteFINRus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteDISRus"))) { setIssue(100, "GTSuiteDISRus", id, true); } else { setIssue(100, "GTSuiteDISRus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteJBCRus"))) { setIssue(100, "GTSuiteJBCRus", id, true); } else { setIssue(100, "GTSuiteJBCRus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteMANRus"))) { setIssue(100, "GTSuiteMANRus", id, true); } else { setIssue(100, "GTSuiteMANRus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteCBSRus"))) { setIssue(100, "GTSuiteCBSRus", id, true); } else { setIssue(100, "GTSuiteCBSRus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteCSLRus"))) { setIssue(100, "GTSuiteCSLRus", id, true); } else { setIssue(100, "GTSuiteCSLRus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteCSURus"))) { setIssue(100, "GTSuiteCSURus", id, true); } else { setIssue(100, "GTSuiteCSURus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteCASRus"))) { setIssue(100, "GTSuiteCASRus", id, true); } else { setIssue(100, "GTSuiteCASRus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteSCMRus"))) { setIssue(100, "GTSuiteSCMRus", id, true); } else { setIssue(100, "GTSuiteSCMRus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuitePOSRus"))) { setIssue(100, "GTSuitePOSRus", id, true); } else { setIssue(100, "GTSuitePOSRus", id, false); }
+          if (getCellValue(evt) < getCellValue(document.getElementById("GTSuiteGBLRus"))) { setIssue(100, "GTSuiteGBLRus", id, true); } else { setIssue(100, "GTSuiteGBLRus", id, false); }
+          break;
+
+        default:
+          // Element not found and not accounted for.
+          break;
+      }
+      break;
+
+    case "tblGTModules":// For the Greentree module table
+      // If Perpetual License, check the Required Count is >= the Current Count
+      if (document.getElementById("licenseType").value === "Perpetual" && getCellValue(document.getElementById(lineName + "RUS")) < getCellValue(document.getElementById(lineName + "CUS"))) {
+        setIssue(101, lineName + "RUS", lineName + "RUS", true);
+      } else {
+        setIssue(101, lineName + "RUS", lineName + "RUS", false);
+      }
+
+      // *** Rules based on individual MODULE Line start here ***
+      switch (id) {
+        case "GTModuleGL_CHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteFINRus"));
+            document.getElementById("GTModuleGL_CUS").innerText = getCellValue(document.getElementById("GTSuiteFINCus")).toFixed(0);
+            document.getElementById("GTModuleGL_RUS").innerText = qtyTmp.toFixed(0);
+            setIssue(201, "*", id, false); // Clear an 201 errors against this element
+          } else {
+            document.getElementById("GTModuleGL_CUS").innerText = "";
+            document.getElementById("GTModuleGL_RUS").innerText = "";
+            if (document.getElementById("GTModuleGLCCHK").checked) { setIssue(201, "GTModuleGLCCHK", id, true); }
+            if (document.getElementById("GTModuleGLTCHK").checked) { setIssue(201, "GTModuleGLTCHK", id, true); }
+          }
+          break;
+
+        case "GTModuleGLCCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteFINRus"));
+            document.getElementById("GTModuleGLCCUS").innerText = getCellValue(document.getElementById("GTSuiteFINCus")).toFixed(0);
+            document.getElementById("GTModuleGLCRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleGL_CHK").checked) { setIssue(201, id, "GTModuleGL_CHK", true); }
+          } else {
+            document.getElementById("GTModuleGLCCUS").innerText = "";
+            document.getElementById("GTModuleGLCRUS").innerText = "";
+            setIssue(201, id, "GTModuleGL_CHK", false);
+          }
+          break;
+
+        case "GTModuleGLRCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteFINRus"));
+            document.getElementById("GTModuleGLRCUS").innerText = getCellValue(document.getElementById("GTSuiteFINCus")).toFixed(0);
+            document.getElementById("GTModuleGLRRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleGL_CHK").checked) { setIssue(201, id, "GTModuleGL_CHK", true); }
+          } else {
+            document.getElementById("GTModuleGLRCUS").innerText = "";
+            document.getElementById("GTModuleGLRRUS").innerText = "";
+            setIssue(201, id, "GTModuleGL_CHK", false);
+          }
+          break;
+
+        case "GTModuleGLTCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteFINRus"));
+            document.getElementById("GTModuleGLTCUS").innerText = getCellValue(document.getElementById("GTSuiteFINCus")).toFixed(0);
+            document.getElementById("GTModuleGLTRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleGL_CHK").checked) { setIssue(201, id, "GTModuleGL_CHK", true); }
+          } else {
+            document.getElementById("GTModuleGLTCUS").innerText = "";
+            document.getElementById("GTModuleGLTRUS").innerText = "";
+            setIssue(201, id, "GTModuleGL_CHK", false);
+          }
+          break;
+
+        case "GTModuleAP_CHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteFINRus"));
+            document.getElementById("GTModuleAP_CUS").innerText = getCellValue(document.getElementById("GTSuiteFINCus")).toFixed(0);
+            document.getElementById("GTModuleAP_RUS").innerText = qtyTmp.toFixed(0);
+          } else {
+            document.getElementById("GTModuleAP_CUS").innerText = "";
+            document.getElementById("GTModuleAP_RUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleAR_CHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteFINRus"));
+            document.getElementById("GTModuleAR_CUS").innerText = getCellValue(document.getElementById("GTSuiteFINCus")).toFixed(0);
+            document.getElementById("GTModuleAR_RUS").innerText = qtyTmp.toFixed(0);
+            setIssue(202, "*", id, false); // Clear an 202 errors against this element
+          } else {
+            document.getElementById("GTModuleAR_CUS").innerText = "";
+            document.getElementById("GTModuleAR_RUS").innerText = "";
+            if (document.getElementById("GTModuleARDCHK").checked) { setIssue(202, "GTModuleARDCHK", id, true); }
+            if (document.getElementById("GTModuleARACHK").checked) { setIssue(202, "GTModuleARACHK", id, true); }
+            if (document.getElementById("GTModuleSCACHK").checked) { setIssue(202, "GTModuleSCACHK", id, true); }
+            if (document.getElementById("GTModulePOSCHK").checked) { setIssue(202, "GTModulePOSCHK", id, true); }
+          }
+          break;
+
+        case "GTModuleARDCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteFINRus"));
+            document.getElementById("GTModuleARDCUS").innerText = getCellValue(document.getElementById("GTSuiteFINCus")).toFixed(0);
+            document.getElementById("GTModuleARDRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleAR_CHK").checked) { setIssue(202, id, "GTModuleAR_CHK", true); }
+          } else {
+            document.getElementById("GTModuleARDCUS").innerText = "";
+            document.getElementById("GTModuleARDRUS").innerText = "";
+            setIssue(202, id, "GTModuleAR_CHK", false);
+          }
+          break;
+
+        case "GTModuleARACHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteFINRus"));
+            document.getElementById("GTModuleARACUS").innerText = getCellValue(document.getElementById("GTSuiteFINCus")).toFixed(0);
+            document.getElementById("GTModuleARARUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleAR_CHK").checked) { setIssue(202, id, "GTModuleAR_CHK", true); }
+          } else {
+            document.getElementById("GTModuleARACUS").innerText = "";
+            document.getElementById("GTModuleARARUS").innerText = "";
+            setIssue(202, id, "GTModuleAR_CHK", false);
+          }
+          break;
+
+        case "GTModuleSECCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteFINRus"));
+            document.getElementById("GTModuleSECCUS").innerText = getCellValue(document.getElementById("GTSuiteFINCus")).toFixed(0);
+            document.getElementById("GTModuleSECRUS").innerText = qtyTmp.toFixed(0);
+          } else {
+            document.getElementById("GTModuleSECCUS").innerText = "";
+            document.getElementById("GTModuleSECRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleFC_CHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteFINRus"));
+            document.getElementById("GTModuleFC_CUS").innerText = getCellValue(document.getElementById("GTSuiteFINCus")).toFixed(0);
+            document.getElementById("GTModuleFC_RUS").innerText = qtyTmp.toFixed(0);
+          } else {
+            document.getElementById("GTModuleFC_CUS").innerText = "";
+            document.getElementById("GTModuleFC_RUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleFA_CHK":
+          if (evt.checked) {
+            document.getElementById("GTModuleFA_RUS").innerText = 999;
+          } else {
+            document.getElementById("GTModuleFA_RUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleQD_CHK":
+          if (evt.checked) {
+            document.getElementById("GTModuleQD_RUS").innerText = 999;
+          } else {
+            document.getElementById("GTModuleQD_RUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleACOCHK":
+          if (evt.checked) {
+            eleTmp = document.getElementById("GTModuleACOCUS");
+            qtyTmp = parseFloat(eleTmp.valueLast);
+            if (Number.Number.isNaN(qtyTmp)) { eleTmp.value = 0; } else { eleTmp.value = qtyTmp; }
+            eleTmp.disabled = false;
+
+            eleTmp = document.getElementById("GTModuleACORUS");
+            qtyTmp = parseFloat(eleTmp.valueLast);
+            if (Number.isNaN(qtyTmp)) { eleTmp.value = 0; } else { eleTmp.value = qtyTmp; }
+            eleTmp.disabled = false;
+          } else {
+            eleTmp = document.getElementById("GTModuleACOCUS");
+            qtyTmp = parseFloat(eleTmp.value);
+            if (Number.isNaN(qtyTmp)) { eleTmp.valueLast = 0; } else { eleTmp.valueLast = qtyTmp; }
+            eleTmp.value = "";
+            eleTmp.disabled = true;
+
+            eleTmp = document.getElementById("GTModuleACORUS");
+            qtyTmp = parseFloat(eleTmp.value);
+            if (Number.isNaN(qtyTmp)) { eleTmp.valueLast = 0; } else { eleTmp.valueLast = qtyTmp; }
+            eleTmp.value = "";
+            eleTmp.disabled = true;
+          }
+          break;
+
+        case "GTModuleCONCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteGBLRus"));
+            document.getElementById("GTModuleCONCUS").innerText = getCellValue(document.getElementById("GTSuiteGBLCus")).toFixed(0);
+            document.getElementById("GTModuleCONRUS").innerText = qtyTmp.toFixed(0);
+          } else {
+            document.getElementById("GTModuleCONCUS").innerText = "";
+            document.getElementById("GTModuleCONRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleGFRCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteGBLRus"));
+            document.getElementById("GTModuleGFRCUS").innerText = getCellValue(document.getElementById("GTSuiteGBLCus")).toFixed(0);
+            document.getElementById("GTModuleGFRRUS").innerText = qtyTmp.toFixed(0);
+          } else {
+            document.getElementById("GTModuleGFRCUS").innerText = "";
+            document.getElementById("GTModuleGFRRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleGFTCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteGBLRus"));
+            document.getElementById("GTModuleGFTCUS").innerText = getCellValue(document.getElementById("GTSuiteGBLCus")).toFixed(0);
+            document.getElementById("GTModuleGFTRUS").innerText = qtyTmp.toFixed(0);
+          } else {
+            document.getElementById("GTModuleGFTCUS").innerText = "";
+            document.getElementById("GTModuleGFTRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleCFCCHK":
+          setGTNoSuiteLine(evt);
+          break;
+
+        case "GTModuleCFCCUS":
+        case "GTModuleCFCRUS":
+          qtyTmp = evt.value % 10;
+          if (!qtyTmp === 0) {
+            qtyTmp = (evt.value - qtyTmp) + 10;
+            window.alert("Consolidation Companies are in bundles of 10" + String.fromCharCode(10) + "  Your entry will be changed to " + qtyTmp);
+            evt.value = qtyTmp;
+          }
+          break;
+
+        case "GTModuleIN_CHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModuleIN_CUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModuleIN_RUS").innerText = qtyTmp.toFixed(0);
+            setIssue(203, "*", id, false); // Clear an 203 errors against this element
+          } else {
+            document.getElementById("GTModuleIN_CUS").innerText = "";
+            document.getElementById("GTModuleIN_RUS").innerText = "";
+            if (document.getElementById("GTModuleINRCHK").checked) { setIssue(203, "GTModuleINRCHK", id, true); }
+            if (document.getElementById("GTModuleINACHK").checked) { setIssue(203, "GTModuleINACHK", id, true); }
+            if (document.getElementById("GTModuleINSCHK").checked) { setIssue(203, "GTModuleINSCHK", id, true); }
+            if (document.getElementById("GTModuleINICHK").checked) { setIssue(203, "GTModuleINICHK", id, true); }
+            if (document.getElementById("GTModuleINQCHK").checked) { setIssue(203, "GTModuleINQCHK", id, true); }
+            if (document.getElementById("GTModuleINWCHK").checked) { setIssue(203, "GTModuleINWCHK", id, true); }
+            if (document.getElementById("GTModuleMRBCHK").checked) { setIssue(203, "GTModuleMRBCHK", id, true); }
+            if (document.getElementById("GTModuleMRPCHK").checked) { setIssue(203, "GTModuleMRPCHK", id, true); }
+            if (document.getElementById("GTModuleMRFCHK").checked) { setIssue(203, "GTModuleMRFCHK", id, true); }
+            if (document.getElementById("GTModulePOSCHK").checked) { setIssue(203, "GTModulePOSCHK", id, true); }
+          }
+          break;
+
+        case "GTModuleINRCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModuleINRCUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModuleINRRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleIN_CHK").checked) { setIssue(203, id, "GTModuleIN_CHK", true); }
+          } else {
+            document.getElementById("GTModuleINRCUS").innerText = "";
+            document.getElementById("GTModuleINRRUS").innerText = "";
+            setIssue(203, id, "GTModuleIN_CHK", false);
+          }
+          break;
+
+        case "GTModuleINACHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModuleINACUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModuleINARUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleIN_CHK").checked) { setIssue(203, id, "GTModuleIN_CHK", true); }
+          } else {
+            document.getElementById("GTModuleINACUS").innerText = "";
+            document.getElementById("GTModuleINARUS").innerText = "";
+            setIssue(203, id, "GTModuleIN_CHK", false);
+          }
+          break;
+
+        case "GTModuleINSCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModuleINSCUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModuleINSRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleIN_CHK").checked) { setIssue(203, id, "GTModuleIN_CHK", true); }
+          } else {
+            document.getElementById("GTModuleINSCUS").innerText = "";
+            document.getElementById("GTModuleINSRUS").innerText = "";
+            setIssue(203, id, "GTModuleIN_CHK", false);
+          }
+          break;
+
+        case "GTModuleINICHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModuleINICUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModuleINIRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleIN_CHK").checked) { setIssue(203, id, "GTModuleIN_CHK", true); }
+          } else {
+            document.getElementById("GTModuleINICUS").innerText = "";
+            document.getElementById("GTModuleINIRUS").innerText = "";
+            setIssue(203, id, "GTModuleIN_CHK", false);
+          }
+          break;
+
+        case "GTModuleINQCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModuleINQCUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModuleINQRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleIN_CHK").checked) { setIssue(203, id, "GTModuleIN_CHK", true); }
+          } else {
+            document.getElementById("GTModuleINQCUS").innerText = "";
+            document.getElementById("GTModuleINQRUS").innerText = "";
+            setIssue(203, id, "GTModuleIN_CHK", false);
+          }
+          break;
+
+        case "GTModuleINWCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModuleINWCUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModuleINWRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleIN_CHK").checked) { setIssue(203, id, "GTModuleIN_CHK", true); }
+          } else {
+            document.getElementById("GTModuleINWCUS").innerText = "";
+            document.getElementById("GTModuleINWRUS").innerText = "";
+            setIssue(203, id, "GTModuleIN_CHK", false);
+          }
+          break;
+
+        case "GTModuleSO_CHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModuleSO_CUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModuleSO_RUS").innerText = qtyTmp.toFixed(0);
+            setIssue(204, "*", id, false); // Clear an 204 errors against this element
+          } else {
+            document.getElementById("GTModuleSO_CUS").innerText = "";
+            document.getElementById("GTModuleSO_RUS").innerText = "";
+            if (document.getElementById("GTModuleSOPCHK").checked) { setIssue(204, "GTModuleSOPCHK", id, true); }
+            if (document.getElementById("GTModuleSOFCHK").checked) { setIssue(204, "GTModuleSOFCHK", id, true); }
+          }
+          break;
+
+        case "GTModuleSOPCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModuleSOPCUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModuleSOPRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleSO_CHK").checked) { setIssue(204, id, "GTModuleSO_CHK", true); }
+            if (!document.getElementById("GTModulePO_CHK").checked) { setIssue(205, id, "GTModulePO_CHK", true); }
+          } else {
+            document.getElementById("GTModuleSOPCUS").innerText = "";
+            document.getElementById("GTModuleSOPRUS").innerText = "";
+            setIssue(204, id, "GTModuleSO_CHK", false);
+            setIssue(205, id, "GTModulePO_CHK", false);
+          }
+          break;
+
+        case "GTModuleSOFCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModuleSOFCUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModuleSOFRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleSO_CHK").checked) { setIssue(204, id, "GTModuleSO_CHK", true); }
+            if (!document.getElementById("GTModuleMRBCHK").checked) { setIssue(206, id, "GTModuleMRBCHK", true); }
+          } else {
+            document.getElementById("GTModuleSOFCUS").innerText = "";
+            document.getElementById("GTModuleSOFRUS").innerText = "";
+            setIssue(204, id, "GTModuleSO_CHK", false);
+            setIssue(206, id, "GTModuleMRBCHK", false);
+          }
+          break;
+
+        case "GTModulePO_CHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModulePO_CUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModulePO_RUS").innerText = qtyTmp.toFixed(0);
+            setIssue(205, "*", id, false); // Clear an 205 errors against this element
+          } else {
+            document.getElementById("GTModulePO_CUS").innerText = "";
+            document.getElementById("GTModulePO_RUS").innerText = "";
+            if (document.getElementById("GTModulePOICHK").checked) { setIssue(205, "GTModulePOICHK", id, true); }
+            if (document.getElementById("GTModuleSOPCHK").checked) { setIssue(205, "GTModuleSOPCHK", id, true); }
+            if (document.getElementById("GTModuleSCRCHK").checked) { setIssue(205, "GTModuleSCRCHK", id, true); }
+          }
+          break;
+
+        case "GTModulePOICHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteDISRus"));
+            document.getElementById("GTModulePOICUS").innerText = getCellValue(document.getElementById("GTSuiteDISCus")).toFixed(0);
+            document.getElementById("GTModulePOIRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModulePO_CHK").checked) { setIssue(205, id, "GTModulePO_CHK", true); }
+          } else {
+            document.getElementById("GTModulePOICUS").innerText = "";
+            document.getElementById("GTModulePOIRUS").innerText = "";
+            setIssue(205, id, "GTModulePO_CHK", false);
+          }
+          break;
+
+        case "GTModuleJC_CHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteJBCRus"));
+            document.getElementById("GTModuleJC_CUS").innerText = getCellValue(document.getElementById("GTSuiteJBCCus")).toFixed(0);
+            document.getElementById("GTModuleJC_RUS").innerText = qtyTmp.toFixed(0);
+            setIssue(207, "*", id, false); // Clear an 207 errors against this element
+          } else {
+            document.getElementById("GTModuleJC_CUS").innerText = "";
+            document.getElementById("GTModuleJC_RUS").innerText = "";
+            if (document.getElementById("GTModuleJCACHK").checked) { setIssue(207, "GTModuleJCACHK", id, true); }
+            if (document.getElementById("GTModuleJCPCHK").checked) { setIssue(207, "GTModuleJCPCHK", id, true); }
+          }
+          break;
+
+        case "GTModuleJCACHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteJBCRus"));
+            document.getElementById("GTModuleJCACUS").innerText = getCellValue(document.getElementById("GTSuiteJBCCus")).toFixed(0);
+            document.getElementById("GTModuleJCARUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleJC_CHK").checked) { setIssue(207, id, "GTModuleJC_CHK", true); }
+          } else {
+            document.getElementById("GTModuleJCACUS").innerText = "";
+            document.getElementById("GTModuleJCARUS").innerText = "";
+            setIssue(207, id, "GTModuleJC_CHK", false);
+          }
+          break;
+
+        case "GTModuleJCPCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteJBCRus"));
+            document.getElementById("GTModuleJCPCUS").innerText = getCellValue(document.getElementById("GTSuiteJBCCus")).toFixed(0);
+            document.getElementById("GTModuleJCPRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleJC_CHK").checked) { setIssue(207, id, "GTModuleJC_CHK", true); }
+          } else {
+            document.getElementById("GTModuleJCPCUS").innerText = "";
+            document.getElementById("GTModuleJCPRUS").innerText = "";
+            setIssue(207, id, "GTModuleJC_CHK", false);
+          }
+          break;
+
+        case "GTModuleMRBCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteMANRus"));
+            document.getElementById("GTModuleMRBCUS").innerText = getCellValue(document.getElementById("GTSuiteMANCus")).toFixed(0);
+            document.getElementById("GTModuleMRBRUS").innerText = qtyTmp.toFixed(0);
+            setIssue(206, "*", id, false); // Clear an 206 errors against this element
+            if (!document.getElementById("GTModuleIN_CHK").checked) { setIssue(203, id, "GTModuleIN_CHK", true); }
+          } else {
+            document.getElementById("GTModuleMRBCUS").innerText = "";
+            document.getElementById("GTModuleMRBRUS").innerText = "";
+            if (document.getElementById("GTModuleSOFCHK").checked) { setIssue(206, "GTModuleSOFCHK", id, true); }
+            setIssue(203, id, "GTModuleIN_CHK", false);
+          }
+          break;
+
+        case "GTModuleMRPCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteMANRus"));
+            document.getElementById("GTModuleMRPCUS").innerText = getCellValue(document.getElementById("GTSuiteMANCus")).toFixed(0);
+            document.getElementById("GTModuleMRPRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleIN_CHK").checked) { setIssue(203, id, "GTModuleIN_CHK", true); }
+          } else {
+            document.getElementById("GTModuleMRPCUS").innerText = "";
+            document.getElementById("GTModuleMRPRUS").innerText = "";
+            setIssue(203, id, "GTModuleIN_CHK", false);
+          }
+          break;
+
+        case "GTModuleMRFCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteMANRus"));
+            document.getElementById("GTModuleMRFCUS").innerText = getCellValue(document.getElementById("GTSuiteMANCus")).toFixed(0);
+            document.getElementById("GTModuleMRFRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleIN_CHK").checked) { setIssue(203, id, "GTModuleIN_CHK", true); }
+          } else {
+            document.getElementById("GTModuleMRFCUS").innerText = "";
+            document.getElementById("GTModuleMRFRUS").innerText = "";
+            setIssue(203, id, "GTModuleIN_CHK", false);
+          }
+          break;
+
+        case "GTModuleCCRCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteCBSRus"));
+            document.getElementById("GTModuleCCRCUS").innerText = getCellValue(document.getElementById("GTSuiteCBSCus")).toFixed(0);
+            document.getElementById("GTModuleCCRRUS").innerText = qtyTmp.toFixed(0);
+            setIssue(208, "*", id, false); // Clear an 208 errors against this element
+          } else {
+            document.getElementById("GTModuleCCRCUS").innerText = "";
+            document.getElementById("GTModuleCCRRUS").innerText = "";
+            if (document.getElementById("GTModuleCDCCHK").checked) { setIssue(208, "GTModuleCDCCHK", id, true); }
+            if (document.getElementById("GTModuleCKBCHK").checked) { setIssue(208, "GTModuleCKBCHK", id, true); }
+            if (document.getElementById("GTModuleCSMCHK").checked) { setIssue(208, "GTModuleCSMCHK", id, true); }
+            if (document.getElementById("GTModuleCBMCHK").checked) { setIssue(208, "GTModuleCBMCHK", id, true); }
+            if (document.getElementById("GTModuleCCSCHK").checked) { setIssue(208, "GTModuleCCSCHK", id, true); }
+          }
+          break;
+
+        case "GTModuleCDCCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteCBSRus"));
+            document.getElementById("GTModuleCDCCUS").innerText = getCellValue(document.getElementById("GTSuiteCBSCus")).toFixed(0);
+            document.getElementById("GTModuleCDCRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleCCRCHK").checked) { setIssue(208, id, "GTModuleCCRCHK", true); }
+          } else {
+            document.getElementById("GTModuleCDCCUS").innerText = "";
+            document.getElementById("GTModuleCDCRUS").innerText = "";
+            setIssue(208, id, "GTModuleCCRCHK", false);
+          }
+          break;
+
+        case "GTModuleCKBCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteCBSRus"));
+            document.getElementById("GTModuleCKBCUS").innerText = getCellValue(document.getElementById("GTSuiteCBSCus")).toFixed(0);
+            document.getElementById("GTModuleCKBRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleCCRCHK").checked) { setIssue(208, id, "GTModuleCCRCHK", true); }
+          } else {
+            document.getElementById("GTModuleCKBCUS").innerText = "";
+            document.getElementById("GTModuleCKBRUS").innerText = "";
+            setIssue(208, id, "GTModuleCCRCHK", false);
+          }
+          break;
+
+        case "GTModuleCSMCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteCSLRus"));
+            document.getElementById("GTModuleCSMCUS").innerText = getCellValue(document.getElementById("GTSuiteCSLCus")).toFixed(0);
+            document.getElementById("GTModuleCSMRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleCCRCHK").checked) { setIssue(208, id, "GTModuleCCRCHK", true); }
+          } else {
+            document.getElementById("GTModuleCSMCUS").innerText = "";
+            document.getElementById("GTModuleCSMRUS").innerText = "";
+            setIssue(208, id, "GTModuleCCRCHK", false);
+          }
+          break;
+
+        case "GTModuleMSOCHK":
+          setGTNoSuiteLine(evt);
+          break;
+
+        case "GTModuleMSOCUS":
+        case "GTModuleMSORUS":
+          checkMinVal(evt, vMinSuiteCount);
+          break;
+
+        case "GTModuleCBMCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteCSLRus"));
+            document.getElementById("GTModuleCBMCUS").innerText = getCellValue(document.getElementById("GTSuiteCSLCus")).toFixed(0);
+            document.getElementById("GTModuleCBMRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleCCRCHK").checked) { setIssue(208, id, "GTModuleCCRCHK", true); }
+          } else {
+            document.getElementById("GTModuleCBMCUS").innerText = "";
+            document.getElementById("GTModuleCBMRUS").innerText = "";
+            setIssue(208, id, "GTModuleCCRCHK", false);
+          }
+          break;
+
+        case "GTModuleCCSCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteCSURus"));
+            document.getElementById("GTModuleCCSCUS").innerText = getCellValue(document.getElementById("GTSuiteCSUCus")).toFixed(0);
+            document.getElementById("GTModuleCCSRUS").innerText = qtyTmp.toFixed(0);
+            setIssue(209, "*", id, false); // Clear an 209 errors against this element
+            if (!document.getElementById("GTModuleCCRCHK").checked) { setIssue(208, id, "GTModuleCCRCHK", true); }
+          } else {
+            document.getElementById("GTModuleCCSCUS").innerText = "";
+            document.getElementById("GTModuleCCSRUS").innerText = "";
+            if (document.getElementById("GTModuleCCTCHK").checked) { setIssue(209, "GTModuleCCTCHK", id, true); }
+            setIssue(208, id, "GTModuleCCRCHK", false);
+          }
+          break;
+
+        case "GTModuleMSRCHK":
+          setGTNoSuiteLine(evt);
+          break;
+
+        case "GTModuleMSRCUS":
+        case "GTModuleMSRRUS":
+          checkMinVal(evt, vMinSuiteCount);
+          break;
+
+        case "GTModuleCCTCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteCSURus"));
+            document.getElementById("GTModuleCCTCUS").innerText = getCellValue(document.getElementById("GTSuiteCSUCus")).toFixed(0);
+            document.getElementById("GTModuleCCTRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleCCSCHK").checked) { setIssue(209, id, "GTModuleCCSCHK", true); }
+          } else {
+            document.getElementById("GTModuleCCTCUS").innerText = "";
+            document.getElementById("GTModuleCCTRUS").innerText = "";
+            setIssue(209, id, "GTModuleCCSCHK", false);
+          }
+          break;
+
+        case "GTModuleAM_CHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteCASRus"));
+            document.getElementById("GTModuleAM_CUS").innerText = getCellValue(document.getElementById("GTSuiteCASCus")).toFixed(0);
+            document.getElementById("GTModuleAM_RUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleCCRCHK").checked) { setIssue(208, id, "GTModuleCCRCHK", true); }
+          } else {
+            document.getElementById("GTModuleAM_CUS").innerText = "";
+            document.getElementById("GTModuleAM_RUS").innerText = "";
+            setIssue(208, id, "GTModuleCCRCHK", false);
+          }
+          break;
+
+        case "GTModuleSCRCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteSCMRus"));
+            document.getElementById("GTModuleSCRCUS").innerText = getCellValue(document.getElementById("GTSuiteSCMCus")).toFixed(0);
+            document.getElementById("GTModuleSCRRUS").innerText = qtyTmp.toFixed(0);
+            setIssue(210, "*", id, false); // Clear an 210 errors against this element
+            if (!document.getElementById("GTModulePO_CHK").checked) { setIssue(205, id, "GTModulePO_CHK", true); }
+          } else {
+            document.getElementById("GTModuleSCRCUS").innerText = "";
+            document.getElementById("GTModuleSCRRUS").innerText = "";
+            if (document.getElementById("GTModuleCCICHK").checked) { setIssue(210, "GTModuleCCICHK", id, true); }
+            if (document.getElementById("GTModuleERQCHK").checked) { setIssue(210, "GTModuleERQCHK", id, true); }
+            setIssue(205, id, "GTModulePO_CHK", false);
+          }
+          break;
+
+        case "GTModuleSCACHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteSCMRus"));
+            document.getElementById("GTModuleSCACUS").innerText = getCellValue(document.getElementById("GTSuiteSCMCus")).toFixed(0);
+            document.getElementById("GTModuleSCARUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleAR_CHK").checked) { setIssue(202, id, "GTModuleAR_CHK", true); }
+          } else {
+            document.getElementById("GTModuleSCACUS").innerText = "";
+            document.getElementById("GTModuleSCARUS").innerText = "";
+            setIssue(202, id, "GTModuleAR_CHK", false);
+          }
+          break;
+
+        case "GTModuleCCICHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteSCMRus"));
+            document.getElementById("GTModuleCCICUS").innerText = getCellValue(document.getElementById("GTSuiteSCMCus")).toFixed(0);
+            document.getElementById("GTModuleCCIRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleSCRCHK").checked) { setIssue(210, id, "GTModuleSCRCHK", true); }
+          } else {
+            document.getElementById("GTModuleCCICUS").innerText = "";
+            document.getElementById("GTModuleCCIRUS").innerText = "";
+            setIssue(210, id, "GTModuleSCRCHK", false);
+          }
+          break;
+
+        case "GTModulePOSCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuitePOSRus"));
+            document.getElementById("GTModulePOSCUS").innerText = getCellValue(document.getElementById("GTSuitePOSCus")).toFixed(0);
+            document.getElementById("GTModulePOSRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleAR_CHK").checked) { setIssue(202, id, "GTModuleAR_CHK", true); }
+            if (!document.getElementById("GTModuleIN_CHK").checked) { setIssue(203, id, "GTModuleIN_CHK", true); }
+          } else {
+            document.getElementById("GTModulePOSCUS").innerText = "";
+            document.getElementById("GTModulePOSRUS").innerText = "";
+            setIssue(202, id, "GTModuleAR_CHK", false);
+            setIssue(203, id, "GTModuleIN_CHK", false);
+          }
+          break;
+
+        case "GTModuleBDRCHK":
+          if (evt.checked) {
+            document.getElementById("GTModuleBDRRUS").innerText = 999;
+          } else {
+            document.getElementById("GTModuleBDRRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleWFDCHK":
+          if (evt.checked) {
+            document.getElementById("GTModuleWFDRUS").innerText = 999;
+            setIssue(211, "*", id, false); // Clear an 211 errors against this element
+          } else {
+            document.getElementById("GTModuleWFDRUS").innerText = "";
+            if (document.getElementById("GTModuleWFACHK").checked) { setIssue(211, "GTModuleWFACHK", id, true); }
+            if (document.getElementById("GTModuleWFBCHK").checked) { setIssue(211, "GTModuleWFBCHK", id, true); }
+            if (document.getElementById("GTModuleWFICHK").checked) { setIssue(211, "GTModuleWFICHK", id, true); }
+            if (document.getElementById("GTModuleWFSCHK").checked) { setIssue(211, "GTModuleWFSCHK", id, true); }
+          }
+          break;
+
+        case "GTModuleWFACHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteTOTRus"));
+            document.getElementById("GTModuleWFACUS").innerText = getCellValue(document.getElementById("GTSuiteTOTCus")).toFixed(0);
+            document.getElementById("GTModuleWFARUS").innerText = qtyTmp.toFixed(0);
+            setIssue(213, "*", id, false); // Clear an 213 errors against this element
+            if (!document.getElementById("GTModuleWFDCHK").checked) { setIssue(211, id, "GTModuleWFDCHK", true); }
+          } else {
+            document.getElementById("GTModuleWFACUS").innerText = "";
+            document.getElementById("GTModuleWFARUS").innerText = "";
+            if (document.getElementById("GTModuleEAPCHK").checked) { setIssue(213, "GTModuleEAPCHK", id, true); }
+            setIssue(211, id, "GTModuleWFDCHK", false);
+          }
+          break;
+
+        case "GTModuleWFBCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteTOTRus"));
+            document.getElementById("GTModuleWFBCUS").innerText = getCellValue(document.getElementById("GTSuiteTOTCus")).toFixed(0);
+            document.getElementById("GTModuleWFBRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleWFDCHK").checked) { setIssue(211, id, "GTModuleWFDCHK", true); }
+          } else {
+            document.getElementById("GTModuleWFBCUS").innerText = "";
+            document.getElementById("GTModuleWFBRUS").innerText = "";
+            setIssue(211, id, "GTModuleWFDCHK", false);
+          }
+          break;
+
+        case "GTModuleWFICHK":
+          if (evt.checked) {
+            document.getElementById("GTModuleWFIRUS").innerText = 999;
+            if (!document.getElementById("GTModuleWFICHK").checked) { setIssue(211, id, "GTModuleWFICHK", true); }
+          } else {
+            document.getElementById("GTModuleWFIRUS").innerText = "";
+            setIssue(211, id, "GTModuleWFICHK", false);
+          }
+          break;
+
+        case "GTModuleWFSCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteTOTRus"));
+            document.getElementById("GTModuleWFSCUS").innerText = getCellValue(document.getElementById("GTSuiteTOTCus")).toFixed(0);
+            document.getElementById("GTModuleWFSRUS").innerText = qtyTmp.toFixed(0);
+            if (!document.getElementById("GTModuleWFDCHK").checked) { setIssue(211, id, "GTModuleWFDCHK", true); }
+          } else {
+            document.getElementById("GTModuleWFSCUS").innerText = "";
+            document.getElementById("GTModuleWFSRUS").innerText = "";
+            setIssue(211, id, "GTModuleWFDCHK", false);
+          }
+          break;
+
+        case "GTModuleMTSCHK":
+          setGTNoSuiteLine(evt);
+          break;
+
+        case "GTModuleMTSCUS":
+        case "GTModuleMTSRUS":
+          qtyTmp = evt.value % 10;
+          if (!qtyTmp === 0) {
+            qtyTmp = (evt.value - qtyTmp) + 10;
+            window.alert("Moble Timesheets are in bundles of 10" + String.fromCharCode(10) + "  Your entry will be changed to " + qtyTmp);
+            evt.value = qtyTmp;
+          }
+          break;
+
+        case "GTModuleERQCHK":
+          if (evt.checked) {
+            document.getElementById("GTModuleERQRUS").innerText = 10;
+            setIssue(212, "*", id, false); // Clear an 212 errors against this element
+            if (!document.getElementById("GTModuleSCRCHK").checked) { setIssue(210, id, "GTModuleSCRCHK", true); }
+          } else {
+            document.getElementById("GTModuleERQRUS").innerText = "";
+            if (document.getElementById("GTModuleERUCHK").checked) { setIssue(212, "GTModuleERUCHK", id, true); }
+            setIssue(210, id, "GTModuleSCRCHK", false);
+          }
+          break;
+
+        case "GTModuleERUCHK":
+          if (evt.checked) {
+            if (!document.getElementById("GTModuleERQCHK").checked) { setIssue(212, id, "GTModuleERQCHK", true); }
+          } else {
+            setIssue(212, id, "GTModuleERQCHK", false);
+          }
+          setGTNoSuiteLine(evt);
+          break;
+
+        case "GTModuleERUCUS":
+        case "GTModuleERURUS":
+          qtyTmp = evt.value % 10;
+          if (!qtyTmp === 0) {
+            qtyTmp = (evt.value - qtyTmp) + 10;
+            window.alert("Additional eRequisitions are in bundles of 10" + String.fromCharCode(10) + "  Your entry will be changed to " + qtyTmp);
+            evt.value = qtyTmp;
+          }
+          break;
+
+        case "GTModuleERPCHK":
+          if (evt.checked) {
+            document.getElementById("GTModuleERPRUS").innerText = 999;
+          } else {
+            document.getElementById("GTModuleERPRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleEAPCHK":
+          if (evt.checked) {
+            document.getElementById("GTModuleEAPRUS").innerText = 10;
+            setIssue(214, "*", id, false); // Clear an 214 errors against this element
+            if (!document.getElementById("GTModuleWFACHK").checked) { setIssue(213, id, "GTModuleWFACHK", true); }
+          } else {
+            document.getElementById("GTModuleEAPRUS").innerText = "";
+            if (document.getElementById("GTModuleEAUCHK").checked) { setIssue(214, "GTModuleEAUCHK", id, true); }
+            setIssue(213, id, "GTModuleWFACHK", false);
+          }
+          break;
+
+        case "GTModuleEAUCHK":
+          if (evt.checked) {
+            if (!document.getElementById("GTModuleEAPCHK").checked) { setIssue(214, id, "GTModuleEAPCHK", true); }
+          } else {
+            setIssue(214, id, "GTModuleEAPCHK", false);
+          }
+          setGTNoSuiteLine(evt);
+          break;
+
+        case "GTModuleEAUCUS":
+        case "GTModuleEAURUS":
+          qtyTmp = evt.value % 10;
+          if (!qtyTmp === 0) {
+            qtyTmp = (evt.value - qtyTmp) + 10;
+            window.alert("Additional eApprovals are in bundles of 10" + String.fromCharCode(10) + "  Your entry will be changed to " + qtyTmp);
+            evt.value = qtyTmp;
+          }
+          break;
+
+        case "GTModuleEDFCHK":
+          if (evt.checked) {
+            if (document.getElementById("GTModuleEDDCHK").checked) {
+              document.getElementById("GTModuleEDFCUS").innerText = 0;
+              document.getElementById("GTModuleEDFRUS").innerText = 0;
+              window.alert("This module is included in the EDI Dictribution Module");
+              evt.checked = false;
+            } else {
+              qtyTmp = getCellValue(document.getElementById("GTSuiteTOTCus"));
+              if (qtyTmp < 12 && qtyTmp > 0) { qtyTmp = 12; }
+              document.getElementById("GTModuleEDFCUS").innerText = qtyTmp.toFixed(0);
+              qtyTmp = getCellValue(document.getElementById("GTSuiteTOTRus"));
+              if (qtyTmp < 12 && qtyTmp > 0) { qtyTmp = 12; }
+              document.getElementById("GTModuleEDFRUS").innerText = qtyTmp.toFixed(0);
+            }
+          } else {
+            document.getElementById("GTModuleEDFCUS").innerText = "";
+            document.getElementById("GTModuleEDFRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleEDDCHK":
+          if (evt.checked) {
+            eleTmp = document.getElementById("GTModuleEDFCHK");
+            document.getElementById("GTModuleEDFCHK").checked = false;
+            document.getElementById("GTModuleEDFCUS").innerText = 0;
+            document.getElementById("GTModuleEDFRUS").innerText = 0;
+            calcLine("GTModuleEDF");
+
+            qtyTmp = getCellValue(document.getElementById("GTSuiteTOTCus"));
+            if (qtyTmp < 12 && qtyTmp > 0) { qtyTmp = 12; }
+            document.getElementById("GTModuleEDDCUS").innerText = qtyTmp.toFixed(0);
+            qtyTmp = getCellValue(document.getElementById("GTSuiteTOTRus"));
+            if (qtyTmp < 12 && qtyTmp > 0) { qtyTmp = 12; }
+            document.getElementById("GTModuleEDDRUS").innerText = qtyTmp.toFixed(0);
+          } else {
+            document.getElementById("GTModuleEDDCUS").innerText = "";
+            document.getElementById("GTModuleEDDRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleSQLCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteTOTRus"));
+            document.getElementById("GTModuleSQLCUS").innerText = getCellValue(document.getElementById("GTSuiteTOTCus")).toFixed(0);
+            document.getElementById("GTModuleSQLRUS").innerText = qtyTmp.toFixed(0);
+          } else {
+            document.getElementById("GTModuleSQLCUS").innerText = "";
+            document.getElementById("GTModuleSQLRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleGSICHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteTOTRus"));
+            document.getElementById("GTModuleGSICUS").innerText = getCellValue(document.getElementById("GTSuiteTOTCus")).toFixed(0);
+            document.getElementById("GTModuleGSIRUS").innerText = qtyTmp.toFixed(0);
+            if (document.getElementById("GTModuleGSTCHK").checked) {
+              document.getElementById("GTModuleGSTCHK").checked = false;
+              document.getElementById("GTModuleGSTCUS").innerText = "";
+              document.getElementById("GTModuleGSTRUS").innerText = "";
+              calcLine("GTModuleGST");
+            }
+          } else {
+            document.getElementById("GTModuleWFSCUS").innerText = "";
+            document.getElementById("GTModuleWFSRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleGSTCHK":
+          if (evt.checked) {
+            qtyTmp = getCellValue(document.getElementById("GTSuiteTOTRus"));
+            document.getElementById("GTModuleGSTCUS").innerText = getCellValue(document.getElementById("GTSuiteTOTCus")).toFixed(0);
+            document.getElementById("GTModuleGSTRUS").innerText = qtyTmp.toFixed(0);
+            if (document.getElementById("GTModuleGSICHK").checked) {
+              document.getElementById("GTModuleGSICHK").checked = false;
+              document.getElementById("GTModuleGSICUS").innerText = "";
+              document.getElementById("GTModuleGSIRUS").innerText = "";
+              calcLine("GTModuleGSI");
+            }
+          } else {
+            document.getElementById("GTModuleWFSCUS").innerText = "";
+            document.getElementById("GTModuleWFSRUS").innerText = "";
+          }
+          break;
+
+        case "GTModuleOWBCHK":
+          if (evt.checked) {
+            document.getElementById("GTModuleOWBRUS").innerText = 999;
+          } else {
+            document.getElementById("GTModuleOWBRUS").innerText = "";
+          }
+          break;
+
+        default:
+          // Code here to trap if we find an unaacounted for module
+          break;
+      }// END OF MODULE SWITCH STATEMENTS
+      calcLine(lineName);
+      break;
+
+    case "tblAODHosting":// For the Hosting table....
+      // *** Rules based on individual HOSTING Line start here ***
+      switch (id) { // Switch based on the Element ID
+        case "GTFullQty":
+          // calcLine("GTFull");
+          /* set the correct GT Database size */
+          if (evt.value <= 7) {
+            document.getElementById("GTDBSmallQty").innerText = "1";
+            document.getElementById("GTDBLargeQty").innerText = "0";
+          } else {
+            document.getElementById("GTDBSmallQty").innerText = "0";
+            document.getElementById("GTDBLargeQty").innerText = "1";
+          }
+          calcLine("GTDBSmall");
+          calcLine("GTDBLarge");
+
+          /* check this number is >= to the System Manager Count */
+          if (evt.value < document.getElementById("GTSuiteTOTRus")) {
+            setIssue(501, id, "GTFullQty", true);
+          } else {
+            setIssue(501, id, "GTFullQty", false);
+          }
+          break;
+
+        case "undefined":
+          break;
+
+        default:
+          break;
+      }
+      calcLine(lineName);
+      break;
+
+    default:
+      // If we hit this we have table that has no rules
+      break;
+  }
+}
+
+/* Calculate Line Item values */
+function calcLine(lineName) {
+  var vCus, vRus, vPrc, vDisP, vDisV, vPrcCus, vPrcRus, vMgnV, vVal, vTot, vExt, marginPct;
+
+  const eleTbl = getParentTable(document.getElementById(lineName)); // Get the table the event is coming from
+
+  switch (eleTbl.id) { // Need to know what table we're calculating the lines on
+    case "tblGTModules":
+      vCus = getCellValue(document.getElementById(lineName + "CUS"));
+      vRus = getCellValue(document.getElementById(lineName + "RUS"));
+
+      switch (lineName) {
+        case "GTModuleSM_":
+          vPrcCus = getGTPrice(vCus, "PGTMDLSM1");
+          vPrcRus = getGTPrice(vRus, "PGTMDLSM1");
+          break;
+
+        case "GTModuleMTS":
+          vPrcCus = getGTPrice(vCus, "PGTMDLM_1");
+          vPrcRus = getGTPrice(vRus, "PGTMDLM_1");
+          break;
+
+        case "GTModuleERU":
+        case "GTModuleEAU":
+          vPrcCus = getGTPrice(vCus, "PGTMDLM_2");
+          vPrcRus = getGTPrice(vRus, "PGTMDLM_2");
+          break;
+
+        case "GTModuleEDF":
+          vPrcCus = getGTPrice(vCus, "PGTMDLE_1");
+          vPrcRus = getGTPrice(vRus, "PGTMDLE_1");
+          break;
+
+        case "GTModuleEDD":
+          vPrcCus = getGTPrice(vCus, "PGTMDLE_1") * 1.5;
+          vPrcRus = getGTPrice(vRus, "PGTMDLE_1") * 1.5;
+          break;
+
+        case "GTModuleARD":
+        case "GTModuleARA":
+        case "GTModuleGLC":
+        case "GTModuleGLR":
+        case "GTModuleGFR":
+        case "GTModuleINR":
+        case "GTModuleINA":
+        case "GTModuleSOP":
+        case "GTModuleSOF":
+        case "GTModulePOI":
+        case "GTModuleJCP":
+        case "GTModuleCDC":
+        case "GTModuleCKB":
+        case "GTModuleSCA":
+        case "GTModuleWFS":
+          vPrcCus = getGTPrice(vCus, "PGTMDLSTD") / 2;
+          vPrcRus = getGTPrice(vRus, "PGTMDLSTD") / 2;
+          break;
+
+        case "GTModuleAP_":
+        case "GTModuleAR_":
+        case "GTModuleGL_":
+        case "GTModuleGLT":
+        case "GTModuleSEC":
+        case "GTModuleFC_":
+        case "GTModuleINS":
+        case "GTModuleINI":
+        case "GTModuleINQ":
+        case "GTModuleSO_":
+        case "GTModulePO_":
+        case "GTModuleJCA":
+        case "GTModuleMRB":
+        case "GTModuleMRF":
+        case "GTModuleCCR":
+        case "GTModuleCSM":
+        case "GTModuleMSO":
+        case "GTModuleCBM":
+        case "GTModuleMSR":
+        case "GTModuleSCR":
+        case "GTModuleCCI":
+        case "GTModulePOS":
+        case "GTModuleWFA":
+        case "GTModuleWFB":
+        case "GTModuleGST":
+          vPrcCus = getGTPrice(vCus, "PGTMDLSTD");
+          vPrcRus = getGTPrice(vRus, "PGTMDLSTD");
+          break;
+
+        case "GTModuleCON":
+        case "GTModuleGFT":
+        case "GTModuleIN_":
+        case "GTModuleINW":
+        case "GTModuleJC_":
+        case "GTModuleCCS":
+        case "GTModuleCCT":
+        case "GTModuleAM_":
+        case "GTModuleSQL":
+          vPrcCus = getGTPrice(vCus, "PGTMDLSTD") * 1.5;
+          vPrcRus = getGTPrice(vRus, "PGTMDLSTD") * 1.5;
+          break;
+
+        case "GTModuleGSI":
+        case "GTModuleMRP":
+          vPrcCus = getGTPrice(vCus, "PGTMDLSTD") * 2;
+          vPrcRus = getGTPrice(vRus, "PGTMDLSTD") * 2;
+          break;
+
+          /* Fixed Price */
+        case "GTModuleFA_":
+        case "GTModuleQD_":
+        case "GTModuleBDR":
+        case "GTModuleWFD":
+        case "GTModuleWFI":
+        case "GTModuleERQ":
+        case "GTModuleERP":
+        case "GTModuleEAP":
+        case "GTModuleOWB":
+          vExt = lineName.substr(lineName.length - 3, 3);
+          vPrcCus = 0;
+          vPrcRus = getGTPrice(vRus, vExt);
+          break;
+
+          /* Linear Priced */
+        case "GTModuleACO":
+        case "GTModuleCFC":
+          vExt = lineName.substr(lineName.length - 3, 3);
+          vPrcCus = getGTPrice(vCus, vExt);
+          vPrcRus = getGTPrice(vRus, vExt);
+          break;
+
+        default:
+          vPrcCus = 999999; // a big number incase something goes wrong!!
+          vPrcRus = 999999; // a big number incase something goes wrong!!
+          break;
+      }
+
+      // This applies to all tblGTModules lines
+      marginPct = document.getElementById("marginPct").value;
+      if (vCus === 0) {
+        document.getElementById(lineName + "CUS").innerText = "";
+      }
+      if (vRus === 0) {
+        document.getElementById(lineName + "RUS").innerText = "";
+      }
+      vPrc = vPrcRus - vPrcCus;
+      vDisP = getCellValue(document.getElementById(lineName + "DSP")) / 100;
+      if (vPrc === 0) {
+        document.getElementById(lineName + "RRP").innerText = "";
+      } else {
+        document.getElementById(lineName + "RRP").innerText = vPrc.toFixed(2);
+      }
+      vDisV = parseFloat((vPrc * vDisP).toFixed(2));
+      if (vDisP === 0) {
+        document.getElementById(lineName + "DSP").innerText = "";
+        document.getElementById(lineName + "DSV").innerText = "";
+      } else {
+        document.getElementById(lineName + "DSP").innerText = "%";
+        document.getElementById(lineName + "DSV").innerText = vDisV.toFixed(2);
+      }
+      vPrc -= vDisV;
+      if (vPrc === 0) {
+        document.getElementById(lineName + "CHG").innerText = "";
+      } else {
+        document.getElementById(lineName + "CHG").innerText = vPrc.toFixed(2);
+      }
+      if (marginPct === 0 || vPrc === 0) {
+        vMgnV = 0;
+        document.getElementById(lineName + "MGN").innerText = "";
+        document.getElementById(lineName + "CST").innerText = "";
+      } else {
+        vMgnV = parseFloat(((vPrc * marginPct) / 100).toFixed(2));
+        document.getElementById(lineName + "MGN").innerText = vMgnV.toFixed(2);
+        document.getElementById(lineName + "CST").innerText = (vPrc - vMgnV).toFixed(2);
+      }
+      TotalTable(eleTbl);
+
+      // Check for Issue 102 - Checked Module with User Count of Zero
+      if (document.getElementById(lineName + "CHK").checked && vRus === 0) {
+        setIssue(102, lineName + "RUS", lineName + "RUS", true);
+      } else {
+        setIssue(102, lineName + "RUS", lineName + "RUS", false);
+      }
+      break;
+
+    case "tblAODHosting":// For the AOD Hosting Table, do this
+      vTot = parseFloat(getCellValue(document.getElementById(eleTbl.id + "TOTVal")) - getCellValue(document.getElementById(lineName + "Val")));
+      vRus = getCellValue(document.getElementById(lineName + "Qty"));
+      vPrc = getCellValue(document.getElementById(lineName + "Prc"));
+      vVal = vRus * vPrc;
+      document.getElementById(lineName + "Val").innerText = vVal.toFixed(2);
+      document.getElementById(eleTbl.id + "TOTVal").innerText = (vTot + vVal).toFixed(2); // add the current line value to the Table Total
+      break;
+
+    default:
+      break;
+  }
+}
+/* Recalculate a Tables Lines */
+function reCalcTable(eleTbl) {
+  var i;
+  const eleRows = eleTbl.getElementsByClassName("trTypeLi1");
+  for (i = 0; i < eleRows.length; i++) {
+    calcLine(eleRows[i].id);
+  }
+  TotalTable(eleTbl);
+}
+
+/* Setup the AOD Hosting */
+function setHostingBasedOnGT() {
+  document.getElementById("AODBaseQty").value = getCellValue(document.getElementById("GTSuiteTOTRus"));
+  document.getElementById("GTSuiteTOTRus").onchange();
+  document.getElementById("GTFullQty").value = getCellValue(document.getElementById("GTSuiteTOTRus"));
+  document.getElementById("GTFullQty").onchange();
+  SetPrices(); // Sets the AODHosting Prices based on the currency
+}
+
+/* Get Table Cell Value */
+function getCellValue(ele) {
+  var eleComment;
+
+  switch (ele.tagName) {
+    case "INPUT":// If the element is type INPUT
+      if (Number.isNaN(parseFloat(ele.value))) { return 0; } // If the Input Value is not a number return 0
+      return parseFloat(ele.value); // Return the Input Value
+
+    case "TD":// If the element is a table cell
+      if (ele.getElementsByClassName("CellValue").length > 0) { // Check it has a "CellValue" element
+        eleComment = ele.getElementsByClassName("CellComment")[0]; // Get the 1st "CellValue" element
+        if (Number.isNaN(parseFloat(eleComment.innerText))) { return 0; } // If the content is not a number return 0
+        return parseFloat(ele.innerText); // else return the content as a number
+      }
+      return 0; // Well we have a problem... it is a cell without a "Cell Value" element Check the HTML code.
+
+    default:
+      return 0; // If we do not know what type of element it is, return a 0
+  }
+}
+
+/* Set a Table Cell Value */
+function setCellValue(ele, val) {
+  switch (ele.tagName) {
+    case "INPUT":// If the element is an Input field
+      ele.value = val; // Assign the value to the input field
+      break;
+
+    case "TD":// If the element is a table cell
+      if (ele.getElementsByClassName("CellValue").length > 0) { // Check it has a "CellValue" element
+        ele.getElementsByClassName("CellComment")[0].innerText = val; // Set the 1st "CellValue" element
+      }
+      break;
+
+    default:
+  }
+}
+/* Calculate Table Totals */
+function TotalTable(eleTbl) {
+  switch (eleTbl.id) {
+    case "tblAODHosting":
+      document.getElementById("tblAODHostingTOTVal").innerText = TotalTableClass(eleTbl, "tdVal");
+      break;
+    case "tblGTModules":
+      document.getElementById("tblGTModulesTOTRRP").innerText = TotalTableClass(eleTbl, "tdRRP");
+      document.getElementById("tblGTModulesTOTDSV").innerText = TotalTableClass(eleTbl, "tdDSV");
+      document.getElementById("tblGTModulesTOTCHG").innerText = TotalTableClass(eleTbl, "tdCHG");
+      document.getElementById("tblGTModulesTOTMGN").innerText = TotalTableClass(eleTbl, "tdMGN");
+      document.getElementById("tblGTModulesTOTCST").innerText = TotalTableClass(eleTbl, "tdCST");
+      break;
+
+    default:
+  }
+}
+
+/* Total the values of a class in a table */
+function TotalTableClass(eleTbl, eleCls) {
+  var i, totVal;
+  const eleVal = eleTbl.getElementsByClassName(eleCls);
+  totVal = 0;
+
+  for (i = 0; i < eleVal.length; i++) {
+    if (!Number.isNaN(parseFloat(eleVal[i].innerText))) {
+      totVal += parseFloat(eleVal[i].innerText);
+    }
+  }
+
+  if (eleTbl.id === "tblGTModules" && totVal === 0) { return ""; } // To match the MYOB Price Workbooks, if the total is 0 show nothing
+  return totVal.toFixed(2);
+}
+
+/* Set up a row that is not related to a Greentree Suite */
+function setGTNoSuiteLine(evt) {
+  var qtyTmp, eleTmp;
+  const lineName = evt.id.substr(0, evt.id.length - 3);
+
+  if (evt.checked) {
+    eleTmp = document.getElementById(lineName + "CUS");
+    qtyTmp = parseFloat(eleTmp.valueLast);
+    if (Number.isNaN(qtyTmp)) {
+      eleTmp.value = 0;
+    } else {
+      eleTmp.value = qtyTmp;
+    }
+    eleTmp.disabled = false;
+
+    eleTmp = document.getElementById(lineName + "RUS");
+    qtyTmp = parseFloat(eleTmp.valueLast);
+    if (Number.isNaN(qtyTmp)) {
+      eleTmp.value = 0;
+    } else {
+      eleTmp.value = qtyTmp;
+    }
+    eleTmp.disabled = false;
+  } else {
+    eleTmp = document.getElementById(lineName + "CUS");
+    qtyTmp = parseFloat(eleTmp.value);
+    if (Number.isNaN(qtyTmp)) {
+      eleTmp.valueLast = 0;
+    } else {
+      eleTmp.valueLast = qtyTmp;
+    }
+    eleTmp.value = "";
+    eleTmp.disabled = true;
+
+    eleTmp = document.getElementById(lineName + "RUS");
+    qtyTmp = parseFloat(eleTmp.value);
+    if (Number.isNaN(qtyTmp)) {
+      eleTmp.valueLast = 0;
+    } else {
+      eleTmp.valueLast = qtyTmp;
+    }
+    eleTmp.value = "";
+    eleTmp.disabled = true;
+  }
+}
+
+// Only value of 0 or >=4 allowed
+function checkMinVal(evt, minVal) {
+  if (evt.value !== 0 && evt.value < minVal) {
+    if (evt.oldvalue < evt.value || evt.value > 6) {
+      evt.value = minVal;
+      evt.oldvalue = minVal;
+    } else {
+      evt.value = 0;
+      evt.oldvalue = 0;
+    }
+  }
+}
+
+/* Get/Calculate the Greentree Price based on Qty and Price Model */
+function getGTPrice(Qty, PrcMdl) {
+  var i, val, calcQty, remQty, prcTbl;
+  remQty = Qty;
+  i = 0;
+  val = 0;
+
+  /* Start with Price Schedules */
+  switch (PrcMdl) {
+    /* System Manager */
+    case "PGTMDLSM1":
+      prcTbl = PGTMDLSM1;
+      break;
+
+      /* Mobile Table 1 */
+    case "PGTMDLM_1":
+      prcTbl = PGTMDLM_1;
+      break;
+
+      /* Mobile Table 2 */
+    case "PGTMDLM_2":
+      prcTbl = PGTMDLM_2;
+      break;
+
+      /* Mobile Table 3 */
+    case "PGTMDLE_1":
+      prcTbl = PGTMDLE_1;
+      break;
+
+      /* Standard Greentree */
+    case "PGTMDLSTD":
+      prcTbl = PGTMDLSTD;
+      break;
+
+      /* If it's not a schedule of rates, it must be linear */
+    default:
+      if (Qty === 0) { return 0; }
+      val = ""; // Incase it's not found.
+      for (i = 0; SchFixedP.length - 1; i++) {
+        if (SchFixedP[i][0] === PrcMdl) {
+          val = SchFixedP[i][1];
+          break;
+        }
+      }
+
+      switch (PrcMdl) {
+        case "FA_":
+        case "QD_":
+        case "BDR":
+        case "WFD":
+        case "WFI":
+        case "ERQ":
+        case "ERP":
+        case "EAP":
+        case "OWB":
+          return val;
+
+        case "ACO":
+        case "CFC":
+          return val * Qty;
+
+        default:
+      }
+  }
+  do {
+    calcQty = Math.min((remQty, prcTbl[i][0] - Qty) + remQty);
+    val += calcQty * prcTbl[i][1];
+    remQty -= calcQty;
+    i += 1;
+  }
+  while (remQty > 0);
+  return val;
+}
+
+/* Find the parent Table of a table element */
+function getParentTable(ele) {
+  var eleParent;
+  while (ele) {
+    eleParent = ele.parentNode;
+    if (eleParent.tagName.toLowerCase() === "table") {
+      return eleParent;
+    }
+  }
+  return undefined;
+}
+
+/* clicking the SM_ checkbox */
+function clickedSMM(cb) { // eslint-disable-line no-unused-vars
+  alert("This is set based on Total System Users Required");
+  cb.checked = cb.oldchecked;
+}
+
+// CODE FOR ISSUES MANAGEMENT
+/* Set or clear and issue from the issuesLog */
+function setIssue(issueNo, eleIDFrom, eleIDAgainst, isSet) {
+  var i;
+  if (eleIDFrom === "*" && !isSet) { // If this is a clear all issues from an element
+    i = issuesLog.length;
+    for (i = issuesLog.length; i >= 0; i--) { // Loop backwards so when a record is deleted it doesn't mess the position in the loop
+      if (issuesLog[i][0] === issueNo && issuesLog[i][2] === eleIDAgainst) { // If it is a matching issue# and matching element ID
+        issuesLog.splice(i, 1); // delete it
+      }
+    }
+    hasIssue(eleIDAgainst); // reset warnings
+    return true; // Outta here - Job done
+  }
+
+  for (i = 0; i < issuesLog.length; i++) { // Loop through the issuesLog
+    if (issuesLog[i][0] === issueNo && // If issuenumber
+      issuesLog[i][1] === eleIDFrom && // If elementFrom,
+      issuesLog[i][2] === eleIDAgainst) { // & elementAgainst match
+      if (isSet) { return true; } // If we're setting the issue. Nothing to be done - Outta here successfully
+      issuesLog.splice(i, 1); // remove the issue
+      hasIssue(eleIDAgainst); // flag the eleIDAgainst accordingly
+      return true; // Outta here successfully
+    }
+  }
+
+  /* got here so this set specific issue is not currently logged */
+  if (isSet) {
+    issuesLog.push([issueNo, eleIDFrom, eleIDAgainst]); // Got here so this is the first issue with these parameters... add it.
+    hasIssue(eleIDAgainst); // flag the eleIDAgainst accordingly
+    return true; // Outta here successfully
+  }
+  // Issue is not in the issues log so no need to do anything
+  hasIssue(eleIDAgainst); // flag the eleIDAgainst accordingly (just to be sure!)
+  return true;
+}
+
+/* Check if an element has an issue in the issues log */
+function hasIssue(eleID) {
+  var i, eleTD, idxIssue, eleComment;
+
+  /* Get Parent Cell */
+  eleTD = document.getElementById(eleID);
+  if (eleTD.tagName.toUpperCase() !== "TD") {
+    while (eleTD) {
+      eleTD = eleTD.parentNode;
+      if (eleTD.tagName.toUpperCase() === "TD") {
+        break;
+      }
+    }
+  }
+
+  if (eleTD.getElementsByClassName("CellComment").length > 0) {
+    eleComment = eleTD.getElementsByClassName("CellComment")[0];
+  }
+
+  /* Start by clearing any existing Issues Logs */
+  eleTD.style.background = "";
+  if (eleComment) { eleComment.innerHTML = ""; }
+
+  for (i = 0; i < issuesLog.length; i++) {
+    if (issuesLog[i][2] === eleID) {
+      /* Add the Cell Comments */
+      for (idxIssue = 0; idxIssue < issueType.length - 1; idxIssue++) {
+        if (issueType[idxIssue][0] === issuesLog[i][0]) {
+          break;
+        }
+      }
+      if (eleComment) { eleComment.innerHTML += "&bull;" + issueType[idxIssue][1] + "</br>"; }
+      // if (eleComment) {eleComment.innerHTML += "-"+issuesLog[i][0]+" : "+issuesLog[i][1]+" : "+issuesLog[i][2]+"</br>";}//Useful for debugging
+      eleTD.style.background = "Red";
+    }
+  }
+}
+
+// CODE FOR NAVIGATION
+// Script to open and close sidebar
+function w3_open() { // eslint-disable-line no-unused-vars
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+function w3_close(MenuSec) { // eslint-disable-line no-unused-vars
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+  switch (MenuSec) {
+    case "AODHosting":
+      setHostingBasedOnGT();
+      reCalcTable(document.getElementById("tblAODHosting"));
+      break;
+    case "Greentree":
+      reCalcTable(document.getElementById("tblGTModules"));
+      break;
+
+    default:
+  }
+  openMenuSec(MenuSec);
+}
+
+/* Open a menu section */
+function openMenuSec(MenuItem) {
+  var i;
+  const x = document.getElementsByClassName("MenuSec");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+
+  document.getElementById(MenuItem).style.display = "block";
+  event.currentTarget.className += " w3-light-grey";
+}
+
+// EXPERTNAL INTERFACING
+/* Export to Excel Function */
+function ExportToExcel(tableName) { // eslint-disable-line no-unused-vars
+  var i, tab_text, sa, txtArea1;
+  const ua = window.navigator.userAgent;
+  const msie = ua.indexOf("MSIE ");
+  const tab = document.getElementById("tblGTModules"); // id of table
+
+  tab_text = "<table border='2px'><tr><center><b>" + tableName + "</b></center></td></tr> <tr bgcolor='#87AFC6'>";
+
+  for (i = 0; i < tab.rows.length; i++) {
+    tab_text = tab_text + tab.rows[i].innerHTML + "</tr>";
+    // tab_text=tab_text+"</tr>";
+  }
+  tab_text += "</table>";
+  tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); // remove if u want links in your table
+  tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+  tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+  if (msie > 0 || !!navigator.userAgent.match(/Trident/)) {
+    txtArea1.document.open("txt/html", "replace");
+    txtArea1.document.write(tab_text);
+    txtArea1.document.close();
+    txtArea1.focus();
+    sa = txtArea1.document.execCommand("SaveAs", true, ".xls");
+  } else {
+    sa = window.open("data:application/vnd.ms-excel," + encodeURIComponent(tab_text));
+    return (sa);
+  }
+}
+
+/* FUNCTIONS USED IN OTHER PLACES - Stops eslint errors */
+/* exported w3_open */
+/* exported w3_close */
+/* exported InitialiseForm */
+/* exported checkRules */
+/* exported clickedSMM */
+/* exported CheckSuiteUsers */
+/* exported GTMargins */
+/* exported SetPartnerMargin */
+/* exported ExportToExcel */

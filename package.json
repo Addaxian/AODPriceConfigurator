@@ -1,0 +1,26 @@
+{
+  "name": "apc",
+  "version": "1.0.0",
+  "description": "An pricing configurator for MYOB Greentree and AOD-Cloud hosting",
+  "main": "APC.js",
+  "scripts": {
+    "test": "index.html"
+  },
+  "keywords": [
+    "MYOB",
+    "AOD",
+    "Price",
+    "Calculator",
+    "Greentree"
+  ],
+  "author": "David Sankey",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0"
+  },
+  "dependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-html": "^4.0.3"
+  }
+}
