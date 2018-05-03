@@ -19,7 +19,7 @@
 <body class="w3-light-grey w3-content" style="max-width:1600px" onclick="windowClick();" onload="InitialiseForm()">
 
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" id="mySidebar" style="z-index:3;width:250px;font-weight:bold">
+    <nav class="w3-sidebar w3-bar-block aod-sup1 w3-animate-left w3-text-grey w3-collapse w3-top w3-center" id="mySidebar" style="z-index:3;width:250px;font-weight:bold">
         <br>
 
         <h3 class="w3-padding-64 w3-center"><b>MYOB GREENTREE<br>
@@ -40,54 +40,61 @@
 	
     <!-- Overlay effect when opening sidebar on small screens -->
     <div class="w3-overlay w3-hide-large w3-animate-opacity" id="myOverlay" onclick="w3_close()" style="cursor:pointer" title="close side menu">
-    </div>
-	
-    <!-- !PAGE CONTENT! -->
+	</div>
+
+	<!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left:250px">
-	
+
+	<!-- Header -->
+		<div class="w3-container w3-padding w3-center w3-grey">
+			<div class="row">
+				<p></p>
+			</div>
+		</div>
+			
         <!-- Push down content on small screens -->
         <div class="w3-hide-large" style="margin-top:83px">
         </div>
 
         <!-- Customer section -->
         <div class="MenuSec w3-container aod-primary w3-center w3-white w3-padding-32" id="Customer">
-            <h4><b>Customer</b></h4>
-
+            <h1><b>Customer</b></h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel sapien in ipsum tempor vehicula eget a enim. Pellentesque pellentesque, ante quis varius tristique, enim diam eleifend lorem, vulputate ultricies arcu quam vel arcu. Nunc sagittis lacus a laoreet gravida. Donec eget erat sapien. Donec luctus nibh est, dignissim vestibulum ante feugiat sit amet.</p>
 
             <p>Duis et tincidunt magna, et laoreet dui. Nulla suscipit leo in diam consectetur tincidunt. Proin tortor nibh, fringilla eget varius et, pulvinar et mi. Pellentesque nec dui interdum, luctus sem ut, dictum eros. Etiam vehicula porta rhoncus.</p>
-
-            <form action="/action_page.php">
+			<p><br></p>
+			<form class="aod-shade" action="/action_page.php">
+				<p><br></p>
                 <div class="row">
-                    <div class="col-25">
+                    <div class="col-lbl">
                         <label for="clientname">Client Name</label>
                     </div>
 
-                    <div class="col-75">
-                        <input autofocus="" id="clientname" name="clientname" placeholder="Client Name.." type="text">
+                    <div class="col-50">
+						<!-- <input style="text-align: left; width: 100%; background-color: white;" id="clientname" name="clientname" placeholder="Client Name.." type="text"> -->
+						<input class="form" id="clientname" name="clientname" placeholder="Client Name.." type="text">
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-25">
+                    <div class="col-lbl">
                         <label for="currency">Currency</label>
                     </div>
 
                     <div class="col-10">
-                        <select class="tdNRA" id="currency" name="currency" onchange="SetPrices()">
+                        <select style="width: 100%" class="tdNRA" id="currency" name="currency" onchange="SetPrices()">
                             <option value="AUD">AUD</option>
                             <option value="NZD">NZD</option>
                             <option value="BPS">BPS</option>
                         </select>
 					</div>
 					<div class="col-05"></div>
-					<div class="col-25">
+					<div class="col-lbl">
                         <label for="marginPct" id="marginLbl">Investment Calculator</label>
                     </div>
 
                     <div class="col-10">
-                        <select class="tdNRA" id="marginPct" name="GTMargin" onchange="SetPartnerMarginLabel(this)">
-							<option value="32.5">32.5%</option>
+                        <select style="width: 100%" class="tdNRA" id="marginPct" name="GTMargin" onchange="SetPartnerMarginLabel(this)">
 							<option value="0">0%</option>
 							<option value="15">15%</option>
 							<option value="20">20%</option>
@@ -104,30 +111,32 @@
 				</div>
 				
 				<div class="row">
-                    <div class="col-25">
+                    <div class="col-lbl">
                         <label for="licenseType">License Type</label>
                     </div>
 
-                    <div class="col-75">
-                        <select id="licenseType" name="licenseType">
+                    <div class="col-10">
+                        <select style="width: 100%" id="licenseType" name="licenseType">
                             <option value="Perpetual">Perpetual</option>
                             <option value="Subscription">Subscription</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-25">
+				<div class="row">
+                    <div class="col-lbl">
                         <label for="notes">Notes</label>
                     </div>
 
-                    <div class="col-75">
-                        <textarea id="notes" name="notes" placeholder="File notes.." style="height:50px"></textarea>
+                    <div class="col-50">
+                        <textarea style="height:50px; width: 100%;" id="notes" name="notes" placeholder="File notes.."></textarea>
                     </div>
                 </div>
+				<p><br></p>
 			</form>
+			<p><br></p>
 			<footer>
-				<div class="w3-container w3-padding-32 w3-row-padding aod-primary row">
+				<div class="w3-container w3-padding-32 w3-row-padding aod-primary">
 					<button style="float: right;" class="button" onclick="w3_close('Greentree')">Next -></button>
 					<!-- <input type="submit" value="Submit"> -->
 				</div>	
@@ -136,9 +145,9 @@
 
 		<!-- Greentree Pricing section -->
         <div class="MenuSec w3-container aod-background-p5 w3-center w3-white w3-padding-32" id="Greentree">
-			<h4><b>Suites</b></h4>
-			  
+			<h1><b>Suites</b></h1>
 			<p style="text-align: center;" >For most Greentree Windows Client modules, the user count is controlled by the suite count.</p>
+
 			<form>
 				<!-- GT Suite Table -->
 				<table class="tblGTSuite" id="tblGTSuite">
@@ -228,7 +237,7 @@
 				</table>
 				<p><br><br></p>
 
-				<h4><b>Modules</b></h4>
+				<h1><b>Modules</b></h1>
 				<p style="text-align: center;" >Greentree Modules</p>
 				<!-- Greentree Modules Table-->
 				<table class="tblGTModules" id="tblGTModules">
@@ -1154,6 +1163,9 @@
 		
 		<!-- AOD Pricing section -->
         <div class="MenuSec w3-container aod-background-p5 w3-center w3-white w3-padding-32" id="AODHosting">
+				<h1><b>AOD Hosting</b></h1>
+				<p style="text-align: center;" >AOD-Hosting is provided by AOD-Cloud.</p>
+	
 			<p></p>
 			<form name="frmPrcHosting" id="frmPrcHosting">
 				<table class="tblAPC1" id="tblAODHosting">
@@ -1503,11 +1515,18 @@
 				</footer>
 			</div>
 			
-		<!-- General Pricing Footer section -->
+		<!-- Summary section -->
         <div class="MenuSec w3-container aod-background-p5 w3-center w3-white w3-padding-32" id="Summary">
-			<p></p>
-			<p>Some summary section..... </p>
-			<h2>Coming</h2>
+			<h1><b>Summary and Submit</b></h1>			  
+			<p style="text-align: center;" ><b>Some summary and next steps in the process will go here....</b></p>
+			<p><br><br></p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dignissim tincidunt metus sollicitudin porta. Etiam pretium est dui, 
+				id luctus nibh rhoncus a. Nulla non interdum leo, in iaculis justo. Aenean non purus eu nulla eleifend maximus eu maximus nunc. 
+				Morbi viverra, risus et facilisis rutrum, dolor ex maximus nisi, vitae ultrices quam felis eget leo. Nullam lacinia nisi metus,
+				 eu tempus diam eleifend sed. Aliquam venenatis ante eget vehicula efficitur. Phasellus nec ex lobortis, tempus tellus et, ullamcorper nisl.
+				 
+				 <p>Sed molestie venenatis rutrum. Proin in semper ligula. Phasellus sed ipsum hendrerit, luctus mi ut, placerat eros. Nulla consectetur felis vel nulla tincidunt, tincidunt ultricies sapien tristique. Curabitur vitae arcu nibh. Etiam sit amet metus tellus. Integer porttitor dui sit amet urna malesuada, non euismod ipsum sagittis</p>
+				 <p><br><br></p>
 			<footer>
 				<div class="w3-container w3-padding-32 w3-row-padding aod-primary row">
 					<button style="float: left;" class="button" onclick="w3_close('AODHosting')">&lt;- Previous</button>
@@ -1520,13 +1539,10 @@
             <div class="w3-row-padding">
 				<div class="row">
 					<p>Add some stuff here about how great we are!!</p>
-<!--					<button onclick="myFunction()">Try it</button>
-					<input type="submit" value="Submit">
--->
 				</div>
             </div>
         </footer>
-		<!-- Copywright -->>	
+		<!-- Copywright -->
         <div class="w3-black w3-center w3-padding-24">
             Powered by Quokka.Works	
         </div>
@@ -1545,7 +1561,6 @@
 	</div>
   
   </div>
-  
 	<script src="APC.js"></script>
 </body>
 </html>

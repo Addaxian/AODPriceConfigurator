@@ -154,7 +154,8 @@ const issueType = [// Issue Types
 /* exported InitialiseForm */
 function InitialiseForm() { // eslint-disable-line no-unused-vars
   issuesLog = [];// (issueType#, originating elementID, flagged elementID)
-  openMenuSec("Greentree");// For now while testing, open to the Greentree menu
+  openMenuSec("Customer"); // Kick-off Page
+  // openMenuSec("Greentree"); // For now while testing, open to the Greentree menu
 }
 
 // CODE FOR PRICING MANAGEMNT
@@ -1528,7 +1529,7 @@ function checkRules(evt) { // eslint-disable-line no-unused-vars
         case "GTModuleEAPCHK": // eApprovals
           if (evt.checked) {
             setCellValue(document.getElementById("GTModuleEAPRUS"), 10);
-            setIssue(214, "*", "*", false); // Clear an 214 errors against this element xxx
+            setIssue(214, "*", "*", false); // Clear an 214 errors against this element
             if (!document.getElementById("GTModuleWFACHK").checked) { setIssue(213, cellName, lineName + "HDR", true); }
           } else {
             setCellValue(document.getElementById("GTModuleEAPRUS"), "");
@@ -1680,7 +1681,7 @@ function checkRules(evt) { // eslint-disable-line no-unused-vars
           calcLine("GTDBSmall");
           calcLine("GTDBLarge");
 
-          if (qtyTmp > getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(501, "GTSuiteTOTRus", cellName, true); } else { setIssue(501, "GTSuiteTOTRus", cellName, false); }
+          if (qtyTmp < getCellValue(document.getElementById("GTSuiteTOTRus"))) { setIssue(501, "GTSuiteTOTRus", cellName, true); } else { setIssue(501, "GTSuiteTOTRus", cellName, false); }
           if (qtyTmp > getCellValue(document.getElementById("AODBaseQty"))) { setIssue(500, "AODBaseQty", cellName, true); } else { setIssue(500, "AODBaseQty", cellName, false); }
           break;
 
@@ -1914,9 +1915,11 @@ function reCalcTable(eleTbl) {
 /* Setup the AOD Hosting */
 function setHostingBasedOnGT() {
   document.getElementById("AODBaseQty").value = getCellValue(document.getElementById("GTSuiteTOTRus"));
-  document.getElementById("GTSuiteTOTRus").onchange();
+  // document.getElementById("GTSuiteTOTRus").getElementsByClassName("tdRUS")[0].onchange();
+  checkRules(document.getElementById("GTSuiteTOTRus").getElementsByClassName("tdRUS")[0]);
   document.getElementById("GTFullQty").value = getCellValue(document.getElementById("GTSuiteTOTRus"));
-  document.getElementById("GTFullQty").onchange();
+  // document.getElementById("GTFullQty").onchange();
+  checkRules(document.getElementById("GTFullQty"));
   SetPrices(); // Sets the AODHosting Prices based on the currency
 }
 
